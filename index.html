@@ -1,416 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaushal Kishor Sharma — Senior Software Engineer</title>
-    <meta name="description" content="Kaushal Kishor Sharma is a Senior Software Engineer building distributed systems, Kubernetes-native platforms, and AI agents. Winner of Ekathon 2025, with deep expertise in Go, Python, AWS, and GCP.">
-    <meta name="keywords" content="Kaushal Kishor Sharma, Senior Software Engineer, Python, Go, AWS, GCP, Kubernetes, AI Agents, Distributed Systems, Backend Engineer, Cloud Engineer, Microservices, FastAPI, Ekathon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaushal Sharma — Backend Engineer</title>
+  <meta name="description" content="Kaushal Sharma is a backend engineer building distributed systems, Kubernetes-native platforms, and AI agents. Go, Python, AWS, GCP.">
 
-    <meta property="og:title" content="Kaushal Kishor Sharma — Senior Software Engineer">
-    <meta property="og:description" content="Distributed systems, Kubernetes-native platforms &amp; AI agents — Go, Python, AWS, GCP.">
-    <meta property="og:image" content="https://init-kaushal.github.io/portfolio/assets/img/profile-pic.png">
-    <meta property="og:url" content="https://init-kaushal.github.io/portfolio/">
-    <meta property="og:type" content="website">
+  <meta property="og:title" content="Kaushal Sharma — Backend Engineer">
+  <meta property="og:description" content="Distributed systems, Kubernetes-native platforms &amp; AI agents — Go, Python, AWS, GCP.">
+  <meta property="og:image" content="https://init-kaushal.github.io/portfolio/assets/img/profile-pic.png">
+  <meta property="og:url" content="https://init-kaushal.github.io/portfolio/">
+  <meta property="og:type" content="website">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kaushal Kishor Sharma — Senior Software Engineer">
-    <meta name="twitter:description" content="Distributed systems, Kubernetes-native platforms &amp; AI agents — Go, Python, AWS, GCP.">
-    <meta name="twitter:image" content="https://init-kaushal.github.io/portfolio/assets/img/profile-pic.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kaushal Sharma — Backend Engineer">
+  <meta name="twitter:description" content="Distributed systems, Kubernetes-native platforms &amp; AI agents — Go, Python, AWS, GCP.">
+  <meta name="twitter:image" content="https://init-kaushal.github.io/portfolio/assets/img/profile-pic.png">
 
-    <link rel="canonical" href="https://init-kaushal.github.io/portfolio/">
-    <link href="assets/img/favicon.ico" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="canonical" href="https://init-kaushal.github.io/portfolio/">
+  <link href="assets/img/favicon.ico" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- display=swap prevents invisible text during font load (FOUT instead of FOIT) -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <script>
-        (function() {
-            var t = localStorage.getItem('portfolio-theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', t);
-        })();
-    </script>
+  <link href="assets/css/style.css" rel="stylesheet">
 
-    <link href="assets/css/style.css" rel="stylesheet">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Kaushal Kishor Sharma",
-        "jobTitle": "Senior Software Engineer",
-        "url": "https://init-kaushal.github.io/portfolio/",
-        "image": "https://init-kaushal.github.io/portfolio/assets/img/profile-pic.png",
-        "email": "mailto:kaushalworkss@gmail.com",
-        "worksFor": {
-            "@type": "Organization",
-            "name": "RapidAI"
-        },
-        "alumniOf": {
-            "@type": "CollegeOrUniversity",
-            "name": "Indian Institute of Information Technology, Jabalpur"
-        },
-        "sameAs": [
-            "https://github.com/init-kaushal",
-            "https://www.linkedin.com/in/kaushal-kishor-sharma",
-            "https://leetcode.com/u/sharmakaushal",
-            "https://x.com/kaushaltwt"
-        ]
-    }
-    </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Kaushal Sharma",
+    "jobTitle": "Senior Software Engineer",
+    "url": "https://init-kaushal.github.io/portfolio/",
+    "email": "mailto:kaushalworkss@gmail.com",
+    "worksFor": { "@type": "Organization", "name": "RapidAI" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Indian Institute of Information Technology, Jabalpur" },
+    "sameAs": [
+      "https://github.com/init-kaushal",
+      "https://www.linkedin.com/in/kaushal-kishor-sharma",
+      "https://leetcode.com/u/sharmakaushal",
+      "https://x.com/kaushaltwt"
+    ]
+  }
+  </script>
 </head>
 <body>
 
-    <!-- ═══ NAV ═══ -->
-    <nav class="nav" id="nav">
-        <div class="nav-inner">
-            <a href="#hero" class="nav-logo">KS<span class="accent">.</span></a>
-            <div class="nav-links" id="navLinks">
-                <a href="#about" class="nav-link">about</a>
-                <a href="#experience" class="nav-link">experience</a>
-                <a href="#skills" class="nav-link">skills</a>
-                <a href="#projects" class="nav-link">projects</a>
-                <a href="#contact" class="nav-link">contact</a>
-            </div>
-            <div class="nav-right">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <span class="icon-sun">☀</span>
-                    <span class="icon-moon">☽</span>
-                </button>
-                <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
+  <!-- ═══ NAV ═══ -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">KS<span class="nav-dot">.</span></a>
+      <div class="nav-links">
+        <a href="#about" class="nav-link">about</a>
+        <a href="#experience" class="nav-link">experience</a>
+        <a href="#projects" class="nav-link">projects</a>
+        <a href="#contact" class="nav-link">contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <p class="hero-prompt reveal">~$</p>
+      <h1 class="hero-name reveal">kaushal sharma<span class="cursor"></span></h1>
+      <p class="hero-role reveal">backend engineer</p>
+      <p class="hero-tagline reveal">building systems that ship,<br>scale, and stay up.</p>
+      <p class="hero-meta reveal">bangalore · rapidai · go · python</p>
+      <div class="hero-actions reveal">
+        <a href="assets/files/Kaushal_5YOE.pdf" target="_blank" rel="noopener" class="hero-link">↓ resume</a>
+        <a href="#contact" class="hero-link">→ contact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about">
+    <div class="container">
+      <span class="label reveal">// about</span>
+      <div class="about-body reveal">
+        <p>I'm a backend engineer who enjoys working on systems that need to be fast, reliable, and scalable. Over the past five years, I've built messaging platforms, webhook pipelines, Kubernetes-native platforms, and AI agents — mostly using Go, Python, and a mix of AWS and GCP services.</p>
+        <p>Lately that's meant building on-prem Kubernetes deployments for hospital-scale workloads, instrumenting distributed tracing across a dozen services, and shipping AI agents that help platform teams resolve incidents faster. I care about writing clean, maintainable code and making the right trade-offs between speed and complexity.</p>
+        <p>Outside of work, you'll find me backpacking, reading, or on a badminton court.</p>
+      </div>
+      <div class="about-details reveal">
+        <div class="detail-row"><span class="detail-key">location</span><span class="detail-val">Bangalore, India</span></div>
+        <div class="detail-row"><span class="detail-key">email</span><span class="detail-val">kaushalworkss@gmail.com</span></div>
+        <div class="detail-row"><span class="detail-key">education</span><span class="detail-val">IIIT Jabalpur — B.Tech CSE (2017–2021)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="experience">
+    <div class="container">
+      <span class="label reveal">// experience</span>
+      <div class="exp-list">
+
+        <div class="exp-role reveal">
+          <div class="exp-header">
+            <span class="exp-company">RapidAI</span>
+            <span class="exp-dates">Jun 2023–present</span>
+          </div>
+          <p class="exp-title">Senior Software Engineer, Platform</p>
+          <ul class="exp-bullets">
+            <li>Built on-prem Kubernetes deployment pipeline for hospital-scale workloads using Helm and ArgoCD</li>
+            <li>Instrumented distributed tracing across 12+ services (Tempo + Grafana)</li>
+            <li>Shipped AI platform agent (poirot) that cut escalation resolution time from 2h+ to under 30 minutes with 80%+ adoption</li>
+            <li>Designed webhook ingestion pipeline handling 500k+ events/day</li>
+          </ul>
         </div>
-    </nav>
 
-    <!-- ═══ HERO ═══ -->
-    <section id="hero" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <p class="hero-greeting reveal">Hi, my name is</p>
-                <h1 class="hero-name reveal">Kaushal Kishor<br>Sharma<span class="accent">.</span></h1>
-                <h2 class="hero-title reveal">I build things for the <span class="accent">cloud</span> — and the edge.</h2>
-                <p class="hero-desc reveal">Senior Software Engineer who designs distributed systems, Kubernetes-native platforms, and AI agents using Go, Python, AWS, and GCP.</p>
-                <div class="hero-actions reveal">
-                    <a href="assets/files/Kaushal_5YOE.pdf" class="btn-primary-custom" target="_blank" rel="noopener">↓ Resume</a>
-                    <a href="#contact" class="btn-outline-custom">Get in touch →</a>
-                </div>
-
-            </div>
+        <div class="exp-role reveal">
+          <div class="exp-header">
+            <span class="exp-company">Eka Care</span>
+            <span class="exp-dates">Jul 2021–Jun 2023</span>
+          </div>
+          <p class="exp-title">Software Engineer</p>
+          <ul class="exp-bullets">
+            <li>Built core prescription and appointment microservices in Go</li>
+            <li>Migrated monolith services to Istio service mesh with zero downtime</li>
+            <li>Led WhatsApp integration layer powering patient notifications at scale</li>
+          </ul>
         </div>
-    </section>
 
-    <!-- ═══ ABOUT ═══ -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-heading reveal"><span class="section-num">01.</span> About</h2>
-            <div class="about-grid">
-                <div class="about-text reveal">
-                    <p>I'm a backend engineer who enjoys working on systems that need to be fast, reliable, and scalable. Over the past five years, I've built messaging platforms, webhook pipelines, Kubernetes-native platforms, and AI agents — mostly using Go, Python, and a mix of AWS and GCP services.</p>
-                    <p>Lately that's meant building on-prem Kubernetes deployments for hospital-scale workloads, instrumenting distributed tracing across a dozen services, and shipping AI agents that help platform teams resolve incidents faster. I care about writing clean, maintainable code and making the right trade-offs between speed and complexity.</p>
-                    <p>Outside of work, you'll find me backpacking, reading, or on a badminton court.</p>
-                    <div class="about-details">
-                        <div class="detail"><span class="detail-key">location</span><span class="detail-val">Bangalore, India</span></div>
-                        <div class="detail"><span class="detail-key">email</span><span class="detail-val">kaushalworkss@gmail.com</span></div>
-                        <div class="detail"><span class="detail-key">education</span><span class="detail-val">IIIT Jabalpur — B.Tech CSE (2017–2021)</span></div>
-                    </div>
-                </div>
-                <div class="about-image reveal">
-                    <div class="image-wrapper">
-                        <img src="assets/img/profile-pic.png" alt="Kaushal Sharma" loading="lazy">
-                        <div class="image-border"></div>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS ═══ -->
+  <section id="projects">
+    <div class="container">
+      <span class="label reveal">// projects</span>
+      <div class="projects-list">
+
+        <div class="project-item reveal">
+          <div class="project-top">
+            <span class="project-cmd">$ poirot run</span>
+            <a href="https://github.com/init-kaushal/poirot" target="_blank" rel="noopener" class="project-link" aria-label="poirot on GitHub">↗</a>
+          </div>
+          <p class="project-desc">Point-in-time reliability, cost and change-risk assessment for Kubernetes clusters.</p>
+          <p class="project-tags">go &nbsp; kubernetes &nbsp; prometheus &nbsp; llm</p>
         </div>
-    </section>
 
-    <!-- ═══ EXPERIENCE ═══ -->
-    <section id="experience" class="section section-alt">
-        <div class="container">
-            <h2 class="section-heading reveal"><span class="section-num">02.</span> Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item reveal">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Senior Software Engineer</h3>
-                            <span class="timeline-date">Oct 2025 — Present</span>
-                        </div>
-                        <p class="timeline-company">RapidAI · Bangalore</p>
-                        <ul class="timeline-list">
-                            <li>Built Rapid SCU, a Kubernetes-native DICOM load-testing service validating platform throughput at 2K–3K scans/day across S3, Box, and local datasets</li>
-                            <li>Generalized Agent Mode automation for edge-native on-prem deployments, now running in production across 100 hospital chains with a roadmap to 500 sites</li>
-                            <li>Ran an OpenTelemetry POC across Axiom, Honeycomb, and Grafana, then instrumented distributed tracing across 10+ services for unified cloud and on-prem debugging</li>
-                            <li>Built an AI-powered platform agent integrating Prometheus MCP and on-prem cluster querying, cutting escalation resolution time from 2+ hours to under 30 minutes with 80%+ adoption</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item reveal">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Software Engineer 2, Tech Platforms</h3>
-                            <span class="timeline-date">Feb 2023 — Sept 2025</span>
-                        </div>
-                        <p class="timeline-company">Eka.Care · Bangalore</p>
-                        <ul class="timeline-list">
-                            <li>Designed a messaging platform that handles 1M+ daily notifications with 99.9% uptime</li>
-                            <li>Built a secure webhook system serving 50+ clients with real-time delivery and symmetric encryption</li>
-                            <li>Developed a URL shortening service processing 60K+ daily requests, replacing a third-party dependency</li>
-                            <li>Migrated WhatsApp infrastructure to Cloud APIs, improving throughput by 200%</li>
-                            <li>Reduced AWS costs by 35% by replacing Kinesis streams with a Kafka-based architecture</li>
-                            <li>Led a data workload migration from AWS to GCP, achieving 25% cost savings</li>
-                            <li>Built telemedicine APIs in Go, supporting 100+ daily consultations</li>
-                            <li>Led and mentored a team of 3 interns to build an internal analytics platform giving product and engineering real-time adoption visibility</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item reveal">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Software Engineer, MQ</h3>
-                            <span class="timeline-date">Jun 2021 — Jan 2023</span>
-                        </div>
-                        <p class="timeline-company">IBM · Bangalore</p>
-                        <ul class="timeline-list">
-                            <li>Worked on high-availability architecture for WebSphere MQ, reducing message latency by 20%</li>
-                            <li>Wrote Java programs that processed 1K+ transaction messages per second across distributed systems</li>
-                            <li>Collaborated with cross-functional teams to improve reliability and scalability of enterprise messaging</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item reveal">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Electricity Load Forecasting Intern</h3>
-                            <span class="timeline-date">May 2020 — Jul 2020</span>
-                        </div>
-                        <p class="timeline-company">Energy Department, Madhya Pradesh</p>
-                        <ul class="timeline-list">
-                            <li>Built an ML-powered web app to forecast electricity demand across Madhya Pradesh</li>
-                            <li>Developed predictive models in Python to analyze historical energy consumption patterns</li>
-                            <li>Integrated the app with PostgreSQL for real-time data storage and retrieval</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="project-item reveal">
+          <div class="project-top">
+            <span class="project-cmd">$ echo-health</span>
+            <span class="project-badge">🏆 1st · Ekathon 2025</span>
+            <a href="https://github.com/init-kaushal/echo-health" target="_blank" rel="noopener" class="project-link" aria-label="echo-health on GitHub">↗</a>
+          </div>
+          <p class="project-desc">Doctors send a voice note on WhatsApp; bot delivers the structured prescription back.</p>
+          <p class="project-tags">python &nbsp; fastapi &nbsp; aws</p>
         </div>
-    </section>
 
-    <!-- ═══ SKILLS ═══ -->
-    <section id="skills" class="section">
-        <div class="container">
-            <h2 class="section-heading reveal"><span class="section-num">03.</span> Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card reveal">
-                    <h3 class="skill-card-title">&lt;/&gt; Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Go</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Shell</span>
-                    </div>
-                </div>
-                <div class="skill-card reveal">
-                    <h3 class="skill-card-title">⚡ Frameworks</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Gin</span>
-                        <span class="skill-tag">Flask</span>
-                        <span class="skill-tag">FastAPI</span>
-                        <span class="skill-tag">Apache Beam</span>
-                        <span class="skill-tag">Django</span>
-                    </div>
-                </div>
-                <div class="skill-card reveal">
-                    <h3 class="skill-card-title">⛁ Databases</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">DynamoDB</span>
-                        <span class="skill-tag">BigQuery</span>
-                        <span class="skill-tag">Redshift</span>
-                        <span class="skill-tag">Firebase</span>
-                        <span class="skill-tag">Redis</span>
-                    </div>
-                </div>
-                <div class="skill-card reveal">
-                    <h3 class="skill-card-title">☁ Cloud, Platform &amp; AI</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">GCP</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Kubernetes</span>
-                        <span class="skill-tag">Kafka</span>
-                        <span class="skill-tag">CloudFront</span>
-                        <span class="skill-tag">CI/CD</span>
-                        <span class="skill-tag">GitHub Actions</span>
-                        <span class="skill-tag">AI Agents</span>
-                        <span class="skill-tag">OpenTelemetry</span>
-                        <span class="skill-tag">Prometheus</span>
-                        <span class="skill-tag">Grafana</span>
-                        <span class="skill-tag">Honeycomb</span>
-                        <span class="skill-tag">Keda</span>
-                        <span class="skill-tag">MetalLB</span>
-                    </div>
-                </div>
-            </div>
+        <div class="project-item reveal">
+          <div class="project-top">
+            <span class="project-cmd">$ skim build</span>
+            <a href="https://github.com/init-kaushal/skim" target="_blank" rel="noopener" class="project-link" aria-label="skim on GitHub">↗</a>
+          </div>
+          <p class="project-desc">Claude Code plugin — intercepts oversized tool calls and substitutes a Haiku digest.</p>
+          <p class="project-tags">go &nbsp; claude api &nbsp; mcp</p>
         </div>
-    </section>
 
-    <!-- ═══ PROJECTS ═══ -->
-    <section id="projects" class="section section-alt">
-        <div class="container">
-            <h2 class="section-heading reveal"><span class="section-num">04.</span> Projects</h2>
-            <div class="projects-grid">
-                <article class="project-card reveal">
-                    <div class="project-top">
-                        <span class="project-icon">🤖</span>
-                        <div class="project-links">
-                            <a href="https://github.com/init-kaushal/poirot" target="_blank" rel="noopener" aria-label="GitHub">↗</a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">poirot</h3>
-                    <p class="project-desc">Point-in-time reliability, cost, and change-risk assessment for Kubernetes clusters. Give it a kubeconfig; get back a structured report covering SLOs, rightsizing, idle resources, and LLM-enriched root-cause analysis.</p>
-                    <div class="project-tech">
-                        <span>Go</span><span>Kubernetes</span><span>Prometheus</span><span>LLM</span>
-                    </div>
-                </article>
-                <article class="project-card reveal">
-                    <div class="project-top">
-                        <span class="project-icon">🏆</span>
-                        <div class="project-links">
-                            <a href="https://github.com/init-kaushal/echo-health" target="_blank" rel="noopener" aria-label="GitHub">↗</a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">ChotiParchi — Voice2RX Bot</h3>
-                    <p class="project-desc">1st place at Ekathon 2025 (Eka.Care × AWS). Doctors send a voice note on WhatsApp describing a consultation; the bot sends it to Eka Care's AI and delivers the generated prescription back in the same chat.</p>
-                    <div class="project-tech">
-                        <span>Python</span><span>FastAPI</span><span>AWS</span>
-                    </div>
-                </article>
-                <article class="project-card reveal">
-                    <div class="project-top">
-                        <span class="project-icon">⚡</span>
-                        <div class="project-links">
-                            <a href="https://github.com/init-kaushal/skim" target="_blank" rel="noopener" aria-label="GitHub">↗</a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">skim — Claude Code Plugin</h3>
-                    <p class="project-desc">A token-saving interceptor for Claude Code that detects oversized Read/Grep/Bash tool calls and substitutes a Haiku-produced digest — reducing context bloat without losing signal.</p>
-                    <div class="project-tech">
-                        <span>Go</span><span>Claude API</span><span>MCP</span>
-                    </div>
-                </article>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS ═══ -->
+  <section id="skills">
+    <div class="container">
+      <span class="label reveal">// skills</span>
+      <div class="skills-list reveal">
+        <div class="skill-row">
+          <span class="skill-cat">systems</span>
+          <span class="skill-vals">go · python · kubernetes · prometheus · grafana</span>
         </div>
-    </section>
-
-    <!-- ═══ ACHIEVEMENTS ═══ -->
-    <section id="achievements" class="section">
-        <div class="container">
-            <h2 class="section-heading reveal"><span class="section-num">05.</span> Achievements</h2>
-            <div class="achievements-list">
-                <div class="achievement-item reveal">
-                    <span class="achievement-year">2025</span>
-                    <span class="achievement-text">🏆 1st Place — Ekathon 2025 (Eka.Care × AWS Hackathon) — ChotiParchi</span>
-                </div>
-                <div class="achievement-item reveal">
-                    <span class="achievement-year">2019</span>
-                    <span class="achievement-text">AIR 29 in National Creativity Aptitude Test</span>
-                </div>
-                <div class="achievement-item reveal">
-                    <span class="achievement-year">2017</span>
-                    <span class="achievement-text">AIR 13,336 in JEE Advanced</span>
-                </div>
-                <div class="achievement-item reveal">
-                    <span class="achievement-year">2017</span>
-                    <span class="achievement-text">AIR 14,908 in JEE Mains</span>
-                </div>
-                <div class="achievement-item reveal">
-                    <span class="achievement-year">2016</span>
-                    <span class="achievement-text">Top 2% — CBSE Senior Secondary (Class XII)</span>
-                </div>
-                <div class="achievement-item reveal">
-                    <span class="achievement-year">2014</span>
-                    <span class="achievement-text">Top 1% — CBSE Secondary (Class X)</span>
-                </div>
-            </div>
+        <div class="skill-row">
+          <span class="skill-cat">cloud</span>
+          <span class="skill-vals">aws · gcp · docker · terraform</span>
         </div>
-    </section>
-
-    <!-- ═══ CONTACT ═══ -->
-    <section id="contact" class="section section-alt">
-        <div class="container">
-            <h2 class="section-heading reveal"><span class="section-num">06.</span> Contact</h2>
-            <div class="contact-grid">
-                <div class="contact-info reveal">
-                    <p class="contact-intro">Have a question, an idea, or just want to say hi? I'd love to hear from you.</p>
-                    <div class="contact-links">
-                        <a href="mailto:kaushalworkss@gmail.com" class="contact-link">
-                            <span class="contact-link-icon">✉</span>
-                            <span>kaushalworkss@gmail.com</span>
-                        </a>
-                        <a href="https://github.com/init-kaushal" target="_blank" rel="noopener" class="contact-link">
-                            <span class="contact-link-icon">⌥</span>
-                            <span>GitHub</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/kaushal-kishor-sharma" target="_blank" rel="noopener" class="contact-link">
-                            <span class="contact-link-icon">⊡</span>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://leetcode.com/u/sharmakaushal" target="_blank" rel="noopener" class="contact-link">
-                            <span class="contact-link-icon">λ</span>
-                            <span>LeetCode</span>
-                        </a>
-                        <a href="https://x.com/kaushaltwt" target="_blank" rel="noopener" class="contact-link">
-                            <span class="contact-link-icon">𝕏</span>
-                            <span>Twitter / X</span>
-                        </a>
-                        <a href="https://www.instagram.com/kausha1_/" target="_blank" rel="noopener" class="contact-link">
-                            <span class="contact-link-icon">◎</span>
-                            <span>Instagram</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-form-wrap reveal">
-                    <form action="https://formspree.io/f/xrbqwljj" method="POST" class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="name">name</label>
-                            <input type="text" name="name" id="name" required minlength="2" placeholder="Jane Doe">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">email</label>
-                            <input type="email" name="email" id="email" required placeholder="jane@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">message</label>
-                            <textarea name="message" id="message" rows="5" required minlength="10" placeholder="What's on your mind?"></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary-custom">Send message →</button>
-                        <div class="form-status" id="formStatus"></div>
-                    </form>
-                </div>
-            </div>
+        <div class="skill-row">
+          <span class="skill-cat">backend</span>
+          <span class="skill-vals">postgresql · redis · kafka · grpc · rest</span>
         </div>
-    </section>
-
-    <!-- ═══ FOOTER ═══ -->
-    <footer class="footer">
-        <div class="container">
-            <p>Built with AI 🤖 by <a href="https://www.linkedin.com/in/kaushal-kishor-sharma/" target="_blank" rel="noopener">Kaushal Sharma</a></p>
+        <div class="skill-row">
+          <span class="skill-cat">ai</span>
+          <span class="skill-vals">claude api · mcp · ai agents</span>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact">
+    <div class="container">
+      <span class="label reveal">// contact</span>
+      <div class="contact-body reveal">
+        <p class="contact-intro">Have a question or just want to say hi?</p>
+        <a href="mailto:kaushalworkss@gmail.com" class="contact-email">kaushalworkss@gmail.com</a>
+        <div class="contact-links">
+          <div class="contact-row">
+            <span class="contact-key">github</span>
+            <a href="https://github.com/init-kaushal" target="_blank" rel="noopener" class="contact-val">→ init-kaushal</a>
+          </div>
+          <div class="contact-row">
+            <span class="contact-key">linkedin</span>
+            <a href="https://www.linkedin.com/in/kaushal-kishor-sharma" target="_blank" rel="noopener" class="contact-val">→ kaushal-kishor-sharma</a>
+          </div>
+          <div class="contact-row">
+            <span class="contact-key">leetcode</span>
+            <a href="https://leetcode.com/u/sharmakaushal" target="_blank" rel="noopener" class="contact-val">→ sharmakaushal</a>
+          </div>
+          <div class="contact-row">
+            <span class="contact-key">x</span>
+            <a href="https://x.com/kaushaltwt" target="_blank" rel="noopener" class="contact-val">→ kaushaltwt</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="assets/js/main.js"></script>
+  <footer class="footer">
+    <div class="container">
+      <p>kaushal sharma · built with IBM Plex Mono + vanilla html</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
 </body>
 </html>
