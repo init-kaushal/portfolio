@@ -87,9 +87,36 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
 }
 
+/* CRT grain noise overlay */
+.crt-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 8998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  animation: grain-pos 0.12s steps(1) infinite;
+}
+
+@keyframes grain-pos {
+  0%   { background-position:   0%   0%; }
+  10%  { background-position:  -5% -10%; }
+  20%  { background-position: -15%   5%; }
+  30%  { background-position:   7% -25%; }
+  40%  { background-position:  20%  25%; }
+  50%  { background-position: -25%  10%; }
+  60%  { background-position:  15%   5%; }
+  70%  { background-position:   0%  15%; }
+  80%  { background-position:  25%  35%; }
+  90%  { background-position: -10%  10%; }
+  100% { background-position:   0%   0%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .crt { display: none; }
+  .crt-grain { display: none; }
   #net-canvas { display: none; }
+  .page-wrap { animation: none; }
 }
 
 /* ── Boot screen ──────────────────────────────────────────────────────── */
@@ -134,7 +161,8 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   color: var(--muted);
 }
 
-.boot-ok { color: var(--green); }
+.boot-ok { color: var(--muted); }
+.boot-ok-tag { color: var(--green); font-weight: 400; }
 .boot-ready {
   color: var(--cyan);
   font-weight: 500;
@@ -160,6 +188,15 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .page-wrap {
   position: relative;
   z-index: 1;
+  animation: crt-flicker 9s linear infinite;
+}
+
+@keyframes crt-flicker {
+  0%, 89%, 100% { opacity: 1; }
+  90%  { opacity: 0.97; }
+  91%  { opacity: 1; }
+  95%  { opacity: 0.985; }
+  96%  { opacity: 1; }
 }
 
 /* ── Terminal window ─────────────────────────────────────────────────── */
@@ -266,6 +303,11 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   padding: 8px 0 4px;
   gap: 0;
   flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background: var(--bg);
+  border-top: 1px solid rgba(31,41,51,0.6);
+  margin-top: 4px;
 }
 
 .term-prompt-label {
@@ -298,6 +340,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   animation: blink 530ms step-end infinite;
   vertical-align: text-bottom;
   flex-shrink: 0;
+  box-shadow: 0 0 6px var(--cyan), 0 0 12px rgba(93,228,255,0.35);
 }
 
 .cursor-inline {
@@ -307,6 +350,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   background: var(--cyan);
   animation: blink 530ms step-end infinite;
   vertical-align: text-bottom;
+  box-shadow: 0 0 4px var(--cyan);
 }
 
 @keyframes blink {
@@ -707,3 +751,48 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 }
 
 @media (max-width: 640px) { .key-hint { display: none; } }
+
+/* ── Execution animation ─────────────────────────────────────────────── */
+.exec-step {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.exec-bar {
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--cyan);
+  margin: 4px 0;
+  letter-spacing: 0.02em;
+}
+
+.exec-ok {
+  font-size: var(--fs-sm);
+  color: var(--green);
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+
+.exec-reveal {
+  animation: exec-fade-in 0.25s ease forwards;
+}
+
+@keyframes exec-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exec-reveal { animation: none; }
+}
+
+/* ── Terminal clear flash ────────────────────────────────────────────── */
+@keyframes clear-flash {
+  from { background: rgba(93,228,255,0.04); }
+  to   { background: transparent; }
+}
+
+.term-body.term-clear-flash {
+  animation: clear-flash 0.15s linear;
+}

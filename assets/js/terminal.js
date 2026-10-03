@@ -1,7 +1,7 @@
 /* ── Terminal Portfolio — Kaushal Sharma ──────────────────────────── */
 'use strict';
 
-/* ── Data (verified content only) ──────────────────────────────────── */
+/* ── Data ─────────────────────────────────────────────────────────── */
 const DATA = {
   name: 'Kaushal Sharma',
   handle: 'kaushal',
@@ -45,6 +45,11 @@ const DATA = {
       desc: 'Point-in-time reliability, cost and change-risk assessment for Kubernetes clusters. Give it a kubeconfig and a poirot.yaml — read report.md.',
       tags: ['go', 'kubernetes', 'prometheus', 'llm'],
       badge: null,
+      execSteps: [
+        '→ Connecting to cluster...',
+        '→ Loading kubeconfig from poirot.yaml...',
+        '→ Analyzing 12 services...',
+      ],
     },
     {
       cmd: 'echo-health',
@@ -53,6 +58,11 @@ const DATA = {
       desc: 'Doctors send a voice note on WhatsApp; bot delivers the structured prescription back. Built at Ekathon 2025.',
       tags: ['python', 'fastapi', 'aws'],
       badge: '🏆 1st · Ekathon 2025',
+      execSteps: [
+        '→ Initializing WhatsApp listener...',
+        '→ Processing voice note...',
+        '→ Structuring prescription output...',
+      ],
     },
     {
       cmd: 'skim build',
@@ -61,6 +71,11 @@ const DATA = {
       desc: 'Claude Code plugin — intercepts oversized tool calls and substitutes a Haiku digest, keeping your context window clean.',
       tags: ['go', 'claude api', 'mcp'],
       badge: null,
+      execSteps: [
+        '→ Loading plugin manifest...',
+        '→ Compiling hook handlers...',
+        '→ Linking MCP interface...',
+      ],
     },
   ],
   skills: [
@@ -71,27 +86,185 @@ const DATA = {
   ],
 };
 
-/* ── Boot sequence messages ─────────────────────────────────────────── */
-const BOOT_MESSAGES = [
-  { text: 'KAUSHAL_OS v2.6.1', delay: 0, cls: 'boot-title' },
-  { text: '─'.repeat(42), delay: 120, cls: 'boot-sep' },
-  { text: '[  OK  ] Initializing kernel...', delay: 300, cls: 'boot-ok' },
-  { text: '[  OK  ] Loading developer profile...', delay: 500, cls: 'boot-ok' },
-  { text: '[  OK  ] Mounting /home/kaushal/portfolio...', delay: 750, cls: 'boot-ok' },
-  { text: '[  OK  ] Connecting to github.com...', delay: 980, cls: 'boot-ok' },
-  { text: '[  OK  ] Loading experience.log...', delay: 1200, cls: 'boot-ok' },
-  { text: '[  OK  ] Parsing projects manifest...', delay: 1420, cls: 'boot-ok' },
-  { text: '[  OK  ] Establishing secure session...', delay: 1600, cls: 'boot-ok' },
-  { text: '─'.repeat(42), delay: 1800, cls: 'boot-sep' },
-  { text: 'SYSTEM READY', delay: 1950, cls: 'boot-ready' },
+/* ── Utilities ─────────────────────────────────────────────────────── */
+function escHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* ── Progress bar animation ────────────────────────────────────────── */
+function animateBar(el, width, totalMs, done) {
+  const w = width || 22;
+  let n = 0;
+  const stepMs = Math.max(10, totalMs / w);
+  const go = () => {
+    if (n > w) { done?.(); return; }
+    el.textContent = `[${'█'.repeat(n)}${'░'.repeat(w - n)}] ${Math.round(n / w * 100)}%`;
+    n++;
+    setTimeout(go, stepMs);
+  };
+  go();
+}
+
+/* ── Project execution animation ───────────────────────────────────── */
+function execProject(proj) {
+  const container = document.createElement('div');
+  container.className = 'out-section';
+  Terminal.outputEl.appendChild(container);
+  Terminal.scrollBottom();
+
+  let d = 60;
+  (proj.execSteps || []).forEach(step => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'exec-step';
+      el.textContent = step;
+      container.appendChild(el);
+      Terminal.scrollBottom();
+    }, d);
+    d += 90;
+  });
+
+  setTimeout(() => {
+    const barEl = document.createElement('div');
+    barEl.className = 'exec-bar';
+    barEl.textContent = '[░░░░░░░░░░░░░░░░░░░░░░] 0%';
+    container.appendChild(barEl);
+    Terminal.scrollBottom();
+
+    animateBar(barEl, 22, 550, () => {
+      const ok = document.createElement('div');
+      ok.className = 'exec-ok';
+      ok.textContent = '✓ done';
+      container.appendChild(ok);
+      Terminal.scrollBottom();
+
+      setTimeout(() => {
+        const card = document.createElement('div');
+        card.className = 'out-project exec-reveal';
+        card.innerHTML = `
+          <div class="out-project-top">
+            <span class="out-company">${proj.name}</span>
+            ${proj.badge ? `<span class="out-badge">${proj.badge}</span>` : ''}
+            <a href="${proj.url}" target="_blank" rel="noopener" class="out-link out-link-arrow">↗ github</a>
+          </div>
+          <div class="out-project-desc">${proj.desc}</div>
+          <div class="out-project-tags">${proj.tags.join(' &nbsp; ')}</div>`;
+        container.appendChild(card);
+        Terminal.scrollBottom();
+      }, 250);
+    });
+  }, d + 80);
+}
+
+/* ── Boot sequence ─────────────────────────────────────────────────── */
+const BOOT_LINES = [
+  { text: 'KAUSHAL_OS v2.6.1', cls: 'boot-title', instant: true, after: 120 },
+  { text: '─'.repeat(42), cls: 'boot-sep', instant: true, after: 200 },
+  { prefix: '[  OK  ] ', text: 'Initializing kernel...', cls: 'boot-ok', charDelay: 10, after: 40 },
+  { prefix: '[  OK  ] ', text: 'Loading developer profile...', cls: 'boot-ok', charDelay: 10, after: 40 },
+  { prefix: '[  OK  ] ', text: 'Mounting /home/kaushal/portfolio...', cls: 'boot-ok', charDelay: 10, after: 40 },
+  { prefix: '[  OK  ] ', text: 'Connecting to github.com...', cls: 'boot-ok', charDelay: 10, after: 40 },
+  { prefix: '[  OK  ] ', text: 'Loading experience.log (5+ years)...', cls: 'boot-ok', charDelay: 10, after: 40 },
+  { prefix: '[  OK  ] ', text: 'Parsing projects manifest...', cls: 'boot-ok', charDelay: 10, after: 40 },
+  { prefix: '[  OK  ] ', text: 'Establishing secure session...', cls: 'boot-ok', charDelay: 10, after: 200 },
+  { text: '─'.repeat(42), cls: 'boot-sep', instant: true, after: 200 },
+  { text: 'SYSTEM READY', cls: 'boot-ready', instant: true, after: 600 },
 ];
 
-/* ── Commands ───────────────────────────────────────────────────────── */
-const COMMANDS = {};
+const Boot = {
+  el: null,
+  linesEl: null,
+  skipBtn: null,
+  stopped: false,
+  done: false,
 
+  init() {
+    this.el = document.getElementById('boot-screen');
+    this.linesEl = document.getElementById('boot-lines');
+    this.skipBtn = document.getElementById('boot-skip');
+    if (!this.el) { this.finish(); return; }
+
+    const skip = () => this.finish();
+    this.skipBtn?.addEventListener('click', skip);
+
+    if (sessionStorage.getItem('kaushal_boot_done')) {
+      this.finish();
+      return;
+    }
+
+    /* Attach keydown skip listener with small delay so programmatic events don't fire it */
+    setTimeout(() => {
+      document.addEventListener('keydown', skip, { once: true });
+    }, 400);
+
+    this.runLine(BOOT_LINES, 0);
+  },
+
+  runLine(lines, idx) {
+    if (this.stopped || idx >= lines.length) {
+      if (!this.stopped) this.finish();
+      return;
+    }
+    const line = lines[idx];
+    const el = document.createElement('div');
+    el.className = `boot-line ${line.cls}`;
+    this.linesEl.appendChild(el);
+    this.linesEl.scrollTop = this.linesEl.scrollHeight;
+
+    if (line.instant || !line.text) {
+      el.textContent = line.text || line.prefix || '';
+      setTimeout(() => this.runLine(lines, idx + 1), line.after || 100);
+    } else {
+      if (line.prefix) {
+        const pfx = document.createElement('span');
+        pfx.className = 'boot-ok-tag';
+        pfx.textContent = line.prefix;
+        el.appendChild(pfx);
+      }
+      const msg = document.createElement('span');
+      el.appendChild(msg);
+      this.typeInto(msg, line.text, line.charDelay || 12, () => {
+        setTimeout(() => this.runLine(lines, idx + 1), line.after || 80);
+      });
+    }
+  },
+
+  typeInto(el, text, charDelay, done) {
+    let i = 0;
+    const step = () => {
+      if (this.stopped) { el.textContent += text.slice(i); done?.(); return; }
+      if (i >= text.length) { done?.(); return; }
+      el.textContent += text[i++];
+      this.linesEl.scrollTop = this.linesEl.scrollHeight;
+      setTimeout(step, charDelay);
+    };
+    step();
+  },
+
+  finish() {
+    if (this.done) return;
+    this.done = true;
+    this.stopped = true;
+    sessionStorage.setItem('kaushal_boot_done', '1');
+
+    if (this.el) {
+      this.el.classList.add('boot-exit');
+      setTimeout(() => {
+        this.el.style.display = 'none';
+        Terminal.init();
+        Terminal.runWelcome();
+      }, 500);
+    } else {
+      Terminal.init();
+      Terminal.runWelcome();
+    }
+  },
+};
+
+/* ── Commands ─────────────────────────────────────────────────────── */
+const COMMANDS = {};
 function cmd(names, fn) {
-  const list = Array.isArray(names) ? names : [names];
-  list.forEach(n => { COMMANDS[n.toLowerCase()] = fn; });
+  (Array.isArray(names) ? names : [names]).forEach(n => { COMMANDS[n.toLowerCase()] = fn; });
 }
 
 cmd('help', () => `<div class="out-section">
@@ -101,6 +274,9 @@ cmd('help', () => `<div class="out-section">
   <div class="out-row"><span class="out-key">whoami</span><span class="out-val">Quick introduction</span></div>
   <div class="out-row"><span class="out-key">experience</span><span class="out-val">Work experience</span></div>
   <div class="out-row"><span class="out-key">projects</span><span class="out-val">Featured projects</span></div>
+  <div class="out-row"><span class="out-key">poirot run</span><span class="out-val">Execute reliability assessment</span></div>
+  <div class="out-row"><span class="out-key">echo-health</span><span class="out-val">Run echo-health demo</span></div>
+  <div class="out-row"><span class="out-key">skim build</span><span class="out-val">Build the skim plugin</span></div>
   <div class="out-row"><span class="out-key">skills</span><span class="out-val">Technical stack</span></div>
   <div class="out-row"><span class="out-key">education</span><span class="out-val">Education background</span></div>
   <div class="out-row"><span class="out-key">contact</span><span class="out-val">Contact information</span></div>
@@ -112,7 +288,7 @@ cmd('help', () => `<div class="out-section">
   <div class="out-row"><span class="out-key">pwd</span><span class="out-val">Print working directory</span></div>
   <div class="out-row"><span class="out-key">date</span><span class="out-val">Current date and time</span></div>
   <div class="out-row"><span class="out-key">history</span><span class="out-val">Command history</span></div>
-  <div class="out-row"><span class="out-key">clear</span><span class="out-val">Clear terminal (also Ctrl+L)</span></div>
+  <div class="out-row"><span class="out-key">clear</span><span class="out-val">Clear terminal (Ctrl+L)</span></div>
 </div>
 <div class="out-hint">↑/↓ history &nbsp;·&nbsp; TAB autocomplete &nbsp;·&nbsp; Ctrl+L clear</div>
 </div>`);
@@ -139,40 +315,87 @@ cmd('about', () => `<div class="out-section">
 </div>
 </div>`);
 
+/* experience — progressive bullets */
 cmd('experience', () => {
-  const roles = DATA.experience.map(e => `
-<div class="out-exp-role">
-  <div class="out-exp-header">
-    <span class="out-company">${e.company}</span>
-    <span class="out-dates">${e.period}</span>
-  </div>
-  <div class="out-title">${e.title}</div>
-  <ul class="out-bullets">
-    ${e.bullets.map(b => `<li>${b}</li>`).join('')}
-  </ul>
-</div>`).join('');
-  return `<div class="out-section">
-<div class="out-label">// cat /var/log/career.log</div>
-${roles}
-</div>`;
+  const container = document.createElement('div');
+  container.className = 'out-section';
+  container.innerHTML = `<div class="out-label">// cat /var/log/career.log</div>`;
+  Terminal.outputEl.appendChild(container);
+  Terminal.scrollBottom();
+
+  let baseDelay = 120;
+
+  DATA.experience.forEach((exp, ri) => {
+    const roleDelay = baseDelay + (ri === 0 ? 0 : 300);
+    baseDelay = roleDelay;
+
+    setTimeout(() => {
+      const header = document.createElement('div');
+      header.className = 'out-exp-role';
+      header.innerHTML = `
+        <div class="out-exp-header">
+          <span class="out-company">${exp.company}</span>
+          <span class="out-dates">${exp.period}</span>
+        </div>
+        <div class="out-title">${exp.title}</div>`;
+      container.appendChild(header);
+      Terminal.scrollBottom();
+    }, roleDelay);
+
+    const ul = document.createElement('ul');
+    ul.className = 'out-bullets';
+
+    exp.bullets.forEach((b, bi) => {
+      const liDelay = roleDelay + 180 + bi * 110;
+      baseDelay = Math.max(baseDelay, liDelay);
+
+      setTimeout(() => {
+        if (!ul.parentNode) container.appendChild(ul);
+        const li = document.createElement('li');
+        li.textContent = b;
+        ul.appendChild(li);
+        Terminal.scrollBottom();
+      }, liDelay);
+    });
+
+    baseDelay += 200;
+  });
+
+  return null;
 });
 
+/* projects — progressive card reveal */
 cmd('projects', () => {
-  const items = DATA.projects.map(p => `
-<div class="out-project">
-  <div class="out-project-top">
-    <span class="out-cmd-green">$ ${p.cmd}</span>
-    ${p.badge ? `<span class="out-badge">${p.badge}</span>` : ''}
-    <a href="${p.url}" target="_blank" rel="noopener" class="out-link out-link-arrow">↗ github</a>
-  </div>
-  <div class="out-project-desc">${p.desc}</div>
-  <div class="out-project-tags">${p.tags.join(' &nbsp; ')}</div>
-</div>`).join('');
-  return `<div class="out-section">
-<div class="out-label">// ls ./projects</div>
-${items}
-</div>`;
+  const container = document.createElement('div');
+  container.className = 'out-section';
+  container.innerHTML = `<div class="out-label">// ls ./projects</div>`;
+  Terminal.outputEl.appendChild(container);
+  Terminal.scrollBottom();
+
+  DATA.projects.forEach((p, i) => {
+    setTimeout(() => {
+      const card = document.createElement('div');
+      card.className = 'out-project exec-reveal';
+      card.innerHTML = `
+        <div class="out-project-top">
+          <span class="out-cmd-green">$ ${escHtml(p.cmd)}</span>
+          ${p.badge ? `<span class="out-badge">${p.badge}</span>` : ''}
+          <a href="${p.url}" target="_blank" rel="noopener" class="out-link out-link-arrow">↗ github</a>
+        </div>
+        <div class="out-project-desc">${p.desc}</div>
+        <div class="out-project-tags">${p.tags.join(' &nbsp; ')}</div>`;
+      container.appendChild(card);
+      Terminal.scrollBottom();
+    }, 120 + i * 280);
+  });
+
+  return null;
 });
+
+/* individual project execution commands */
+cmd('poirot run', () => { execProject(DATA.projects[0]); return null; });
+cmd('echo-health', () => { execProject(DATA.projects[1]); return null; });
+cmd('skim build',  () => { execProject(DATA.projects[2]); return null; });
 
 cmd('skills', () => {
   const rows = DATA.skills.map(s =>
@@ -219,29 +442,49 @@ cmd('github', () => {
   return `<div class="out-section"><div class="out-p out-muted">Opening <a href="${DATA.github}" target="_blank" rel="noopener" class="out-link">github.com/init-kaushal</a> ...</div></div>`;
 });
 
-cmd('neofetch', () => `<div class="out-section out-neofetch">
-<pre class="out-ascii">  ██╗  ██╗███████╗
+/* neofetch — progressive row rendering */
+cmd('neofetch', () => {
+  const ASCII = `  ██╗  ██╗███████╗
   ██║ ██╔╝██╔════╝
   █████╔╝ ███████╗
   ██╔═██╗ ╚════██║
   ██║  ██╗███████║
-  ╚═╝  ╚═╝╚══════╝</pre>
-<div class="out-neofetch-info">
-  <div class="out-nf-name">${DATA.handle}@portfolio</div>
-  <div class="out-nf-sep">──────────────────────</div>
-  <div class="out-row"><span class="out-key">OS</span><span class="out-val">KaushalOS 2.6.1</span></div>
-  <div class="out-row"><span class="out-key">Role</span><span class="out-val">Backend Engineer</span></div>
-  <div class="out-row"><span class="out-key">Location</span><span class="out-val">${DATA.location}</span></div>
-  <div class="out-row"><span class="out-key">Runtime</span><span class="out-val">Go · Python</span></div>
-  <div class="out-row"><span class="out-key">Cloud</span><span class="out-val">AWS · GCP</span></div>
-  <div class="out-row"><span class="out-key">K8s</span><span class="out-val">Kubernetes · Helm · ArgoCD</span></div>
-  <div class="out-row"><span class="out-key">Database</span><span class="out-val">PostgreSQL · Redis</span></div>
-  <div class="out-row"><span class="out-key">AI</span><span class="out-val">Agents · MCP · LLMs</span></div>
-  <div class="out-row"><span class="out-key">Experience</span><span class="out-val">5+ years</span></div>
-  <div class="out-nf-sep">──────────────────────</div>
-  <div class="out-row"><span class="out-key">Status</span><span class="out-val"><span class="status-dot">●</span> Open to opportunities</span></div>
-</div>
-</div>`);
+  ╚═╝  ╚═╝╚══════╝`;
+
+  const container = document.createElement('div');
+  container.className = 'out-section out-neofetch';
+  container.innerHTML = `<pre class="out-ascii">${ASCII}</pre><div class="nf-rows"></div>`;
+  Terminal.outputEl.appendChild(container);
+  Terminal.scrollBottom();
+
+  const rowsEl = container.querySelector('.nf-rows');
+  const rows = [
+    `<div class="out-nf-name">${DATA.handle}@portfolio</div>`,
+    `<div class="out-nf-sep">──────────────────────</div>`,
+    `<div class="out-row"><span class="out-key">OS</span><span class="out-val">KaushalOS 2.6.1</span></div>`,
+    `<div class="out-row"><span class="out-key">Role</span><span class="out-val">Backend Engineer</span></div>`,
+    `<div class="out-row"><span class="out-key">Location</span><span class="out-val">${DATA.location}</span></div>`,
+    `<div class="out-row"><span class="out-key">Runtime</span><span class="out-val">Go · Python</span></div>`,
+    `<div class="out-row"><span class="out-key">Cloud</span><span class="out-val">AWS · GCP</span></div>`,
+    `<div class="out-row"><span class="out-key">K8s</span><span class="out-val">Kubernetes · Helm · ArgoCD</span></div>`,
+    `<div class="out-row"><span class="out-key">Database</span><span class="out-val">PostgreSQL · Redis</span></div>`,
+    `<div class="out-row"><span class="out-key">AI</span><span class="out-val">Agents · MCP · LLMs</span></div>`,
+    `<div class="out-row"><span class="out-key">Experience</span><span class="out-val">5+ years</span></div>`,
+    `<div class="out-nf-sep">──────────────────────</div>`,
+    `<div class="out-row"><span class="out-key">Status</span><span class="out-val"><span class="status-dot">●</span> Open to opportunities</span></div>`,
+  ];
+
+  let i = 0;
+  const next = () => {
+    if (i >= rows.length) return;
+    rowsEl.insertAdjacentHTML('beforeend', rows[i++]);
+    Terminal.scrollBottom();
+    setTimeout(next, i < 3 ? 60 : 80);
+  };
+  setTimeout(next, 80);
+
+  return null;
+});
 
 cmd('status', () => `<div class="out-section">
 <div class="out-label">// status</div>
@@ -255,13 +498,13 @@ cmd('status', () => `<div class="out-section">
 
 cmd('ls', () => `<div class="out-section">
 <div class="out-ls">
-  <span class="ls-dir">drwxr-xr-x</span>&nbsp; about/
-  <span class="ls-dir">drwxr-xr-x</span>&nbsp; experience/
-  <span class="ls-dir">drwxr-xr-x</span>&nbsp; projects/
-  <span class="ls-dir">drwxr-xr-x</span>&nbsp; skills/
-  <span class="ls-dir">drwxr-xr-x</span>&nbsp; contact/
-  <span class="ls-file">-rw-r--r--</span>&nbsp; resume.pdf
-  <span class="ls-exec">-rwxr-xr-x</span>&nbsp; neofetch*
+  <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; about/</div>
+  <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; experience/</div>
+  <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; projects/</div>
+  <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; skills/</div>
+  <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; contact/</div>
+  <div><span class="ls-file">-rw-r--r--</span>&nbsp; resume.pdf</div>
+  <div><span class="ls-exec">-rwxr-xr-x</span>&nbsp; neofetch*</div>
 </div>
 </div>`);
 
@@ -274,16 +517,21 @@ cmd('date', () => {
 
 cmd('history', () => {
   const h = Terminal.history;
-  if (!h.length) return `<div class="out-section"><div class="out-muted">No history yet.</div></div>`;
+  if (!h.length) return `<div class="out-section"><div class="out-muted out-p">No history yet.</div></div>`;
   const lines = h.map((c, i) =>
-    `<div class="out-row"><span class="out-key" style="min-width:2em">${i + 1}</span><span class="out-val">${escHtml(c)}</span></div>`
+    `<div class="out-row"><span class="out-key" style="min-width:2.2em;text-align:right">${i + 1}</span><span class="out-val" style="padding-left:12px">${escHtml(c)}</span></div>`
   ).join('');
   return `<div class="out-section"><div class="out-table">${lines}</div></div>`;
 });
 
-cmd('clear', () => { Terminal.clear(); return null; });
+cmd('clear', () => {
+  Terminal.outputEl.innerHTML = '';
+  Terminal.bodyEl.classList.add('term-clear-flash');
+  setTimeout(() => Terminal.bodyEl.classList.remove('term-clear-flash'), 120);
+  return null;
+});
 
-/* Easter eggs */
+/* ── Easter eggs ───────────────────────────────────────────────────── */
 cmd('sudo hire kaushal', () => `<div class="out-section">
 <div class="out-p out-muted">[sudo] password for recruiter: <span class="cursor-inline">█</span></div>
 <div class="out-p out-amber">──────────────────────────────</div>
@@ -331,7 +579,7 @@ cmd(['rm -rf /', 'rm -rf /*'], () => `<div class="out-section">
 <div class="out-p out-muted">Nice try. The portfolio stays.</div>
 </div>`);
 
-/* ── Terminal object ────────────────────────────────────────────────── */
+/* ── Terminal ──────────────────────────────────────────────────────── */
 const Terminal = {
   history: [],
   histCursor: -1,
@@ -344,25 +592,17 @@ const Terminal = {
     this.inputEl = document.getElementById('term-input');
     this.outputEl = document.getElementById('term-output');
     this.bodyEl = document.getElementById('term-body');
-
     if (!this.inputEl) return;
 
     this.inputEl.addEventListener('keydown', e => this.onKeyDown(e));
-
-    /* Click anywhere in term-body to focus input */
     this.bodyEl.addEventListener('click', () => this.inputEl.focus());
 
-    /* Keep input focused on desktop */
     document.addEventListener('keydown', e => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (document.activeElement !== this.inputEl && !this.isTextFocus()) {
         this.inputEl.focus();
       }
     });
-
-    /* Mobile: tap terminal header to focus */
-    const titlebar = document.querySelector('.term-titlebar');
-    if (titlebar) titlebar.addEventListener('click', () => this.inputEl.focus());
   },
 
   isTextFocus() {
@@ -400,7 +640,7 @@ const Terminal = {
       this.tabComplete();
     } else if (e.key === 'l' && e.ctrlKey) {
       e.preventDefault();
-      this.clear();
+      COMMANDS['clear']?.();
     }
   },
 
@@ -417,15 +657,13 @@ const Terminal = {
       this.inputEl.value = matches[0];
     } else if (matches.length > 1) {
       this.printPromptLine(val);
-      this.print(`<div class="out-section"><div class="out-ls">${matches.join('&nbsp; &nbsp;')}</div></div>`);
+      this.print(`<div class="out-section"><div class="out-ls">${matches.map(escHtml).join('&nbsp; &nbsp;')}</div></div>`);
     }
   },
 
   execute(raw) {
     if (!raw) return;
     this.history.push(raw);
-
-    /* Print the command line */
     this.printPromptLine(raw);
 
     const key = raw.toLowerCase();
@@ -454,17 +692,11 @@ const Terminal = {
     this.outputEl.appendChild(el);
   },
 
-  clear() {
-    this.outputEl.innerHTML = '';
-  },
-
   scrollBottom() {
     this.bodyEl.scrollTop = this.bodyEl.scrollHeight;
   },
 
-  /* Run the initial whoami after boot */
   runWelcome() {
-    /* Small delay so it feels like the cursor just appeared */
     const simulateType = (str, cb) => {
       let i = 0;
       this.inputEl.value = '';
@@ -473,9 +705,9 @@ const Terminal = {
           this.inputEl.value += str[i++];
         } else {
           clearInterval(iv);
-          setTimeout(cb, 200);
+          setTimeout(cb, 180);
         }
-      }, 60);
+      }, 55);
     };
 
     setTimeout(() => {
@@ -483,71 +715,11 @@ const Terminal = {
         this.execute('whoami');
         this.inputEl.value = '';
       });
-    }, 400);
+    }, 380);
   },
 };
 
-/* ── Boot sequence ──────────────────────────────────────────────────── */
-const Boot = {
-  el: null,
-  linesEl: null,
-  skipBtn: null,
-  timers: [],
-  done: false,
-
-  init() {
-    this.el = document.getElementById('boot-screen');
-    this.linesEl = document.getElementById('boot-lines');
-    this.skipBtn = document.getElementById('boot-skip');
-    if (!this.el) { this.finish(); return; }
-
-    /* Skip on any key or click */
-    const skip = () => this.finish();
-    this.skipBtn?.addEventListener('click', skip);
-    document.addEventListener('keydown', skip, { once: true });
-
-    const seen = sessionStorage.getItem('kaushal_boot_done');
-    if (seen) { this.finish(); return; }
-
-    BOOT_MESSAGES.forEach(m => {
-      const t = setTimeout(() => this.addLine(m.text, m.cls), m.delay);
-      this.timers.push(t);
-    });
-
-    const lastDelay = BOOT_MESSAGES[BOOT_MESSAGES.length - 1].delay + 600;
-    const t = setTimeout(() => this.finish(), lastDelay);
-    this.timers.push(t);
-  },
-
-  addLine(text, cls) {
-    const el = document.createElement('div');
-    el.className = `boot-line ${cls || ''}`;
-    el.textContent = text;
-    this.linesEl.appendChild(el);
-    this.linesEl.scrollTop = this.linesEl.scrollHeight;
-  },
-
-  finish() {
-    if (this.done) return;
-    this.done = true;
-    this.timers.forEach(clearTimeout);
-    sessionStorage.setItem('kaushal_boot_done', '1');
-
-    if (this.el) {
-      this.el.classList.add('boot-exit');
-      setTimeout(() => {
-        this.el.style.display = 'none';
-        Terminal.init();
-        Terminal.runWelcome();
-      }, 500);
-    } else {
-      Terminal.init();
-      Terminal.runWelcome();
-    }
-  },
-};
-
-/* ── Network canvas ─────────────────────────────────────────────────── */
+/* ── Network canvas ────────────────────────────────────────────────── */
 const Network = {
   canvas: null,
   ctx: null,
@@ -564,14 +736,10 @@ const Network = {
     this.resize();
     this.buildNodes();
     window.addEventListener('resize', () => { this.resize(); this.buildNodes(); });
-
-    /* Pause when tab hidden */
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) cancelAnimationFrame(this.raf);
       else this.loop(0);
     });
-
-    /* Respect reduced motion */
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       this.loop(0);
     }
@@ -606,36 +774,26 @@ const Network = {
   },
 
   tick() {
-    /* Move nodes */
     this.nodes.forEach(n => {
       n.x += n.vx;
       n.y += n.vy;
-      if (n.x < 0 || n.x > this.canvas.width) n.vx *= -1;
+      if (n.x < 0 || n.x > this.canvas.width)  n.vx *= -1;
       if (n.y < 0 || n.y > this.canvas.height) n.vy *= -1;
     });
-
-    /* Occasionally spawn a packet */
     if (Math.random() < 0.04 && this.packets.length < 8) {
       const ai = Math.floor(Math.random() * this.nodes.length);
       let bi = Math.floor(Math.random() * this.nodes.length);
       if (bi === ai) bi = (ai + 1) % this.nodes.length;
       this.packets.push({ ai, bi, t: 0, speed: 0.008 + Math.random() * 0.012 });
     }
-
-    /* Move packets */
-    this.packets = this.packets.filter(p => {
-      p.t += p.speed;
-      return p.t < 1;
-    });
+    this.packets = this.packets.filter(p => { p.t += p.speed; return p.t < 1; });
   },
 
   draw() {
     const { ctx, canvas, nodes, packets } = this;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     const DIST = 220;
 
-    /* Edges */
     ctx.lineWidth = 0.5;
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
@@ -643,8 +801,7 @@ const Network = {
         const dy = nodes[i].y - nodes[j].y;
         const d = Math.sqrt(dx * dx + dy * dy);
         if (d < DIST) {
-          const alpha = (1 - d / DIST) * 0.12;
-          ctx.strokeStyle = `rgba(93,228,255,${alpha})`;
+          ctx.strokeStyle = `rgba(93,228,255,${(1 - d / DIST) * 0.12})`;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -652,103 +809,87 @@ const Network = {
         }
       }
     }
-
-    /* Nodes */
     nodes.forEach(n => {
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(93,228,255,0.25)';
       ctx.fill();
     });
-
-    /* Packets */
     packets.forEach(p => {
       const a = nodes[p.ai], b = nodes[p.bi];
-      const x = a.x + (b.x - a.x) * p.t;
-      const y = a.y + (b.y - a.y) * p.t;
       ctx.beginPath();
-      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.arc(a.x + (b.x - a.x) * p.t, a.y + (b.y - a.y) * p.t, 2, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(124,255,107,0.6)';
       ctx.fill();
     });
   },
 };
 
-/* ── Metrics counter animation ──────────────────────────────────────── */
+/* ── Metrics counters ──────────────────────────────────────────────── */
 function initMetrics() {
-  const nums = document.querySelectorAll('.metric-num[data-target]');
-  if (!nums.length) return;
+  const els = document.querySelectorAll('.metric-num[data-target]');
+  if (!els.length) return;
+
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
       const el = e.target;
-      const raw = el.getAttribute('data-target');
+      const target = parseFloat(el.getAttribute('data-target'));
       const suffix = el.getAttribute('data-suffix') || '';
       const prefix = el.getAttribute('data-prefix') || '';
-      const target = parseFloat(raw);
+      const raw = el.getAttribute('data-target');
+      const isFloat = raw.includes('.');
       const duration = 1400;
       const start = performance.now();
-      const isFloat = raw.includes('.');
-      const step = (now) => {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const val = target * eased;
-        el.textContent = prefix + (isFloat ? val.toFixed(1) : Math.round(val)) + suffix;
-        if (progress < 1) requestAnimationFrame(step);
+
+      /* Reset then count up */
+      el.textContent = prefix + (isFloat ? '0.0' : '0') + suffix;
+      const step = now => {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + (isFloat ? (target * eased).toFixed(1) : Math.round(target * eased)) + suffix;
+        if (p < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
       obs.unobserve(el);
     });
-  }, { threshold: 0.5 });
-  nums.forEach(el => obs.observe(el));
+  }, { threshold: 0.15 });
+
+  els.forEach(el => obs.observe(el));
 }
 
-/* ── Scroll reveals ─────────────────────────────────────────────────── */
+/* ── Scroll reveals ────────────────────────────────────────────────── */
 function initReveals() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 }
 
-/* ── Nav keyboard shortcuts ─────────────────────────────────────────── */
+/* ── Nav keyboard shortcuts ────────────────────────────────────────── */
 function initKeyNav() {
-  const map = {
-    '1': '#about', '2': '#experience', '3': '#projects',
-    '4': '#skills', '5': '#contact',
-  };
+  const map = { '1': '#about', '2': '#experience', '3': '#projects', '4': '#skills', '5': '#contact' };
   document.addEventListener('keydown', e => {
     if (document.activeElement === Terminal.inputEl) return;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     const target = map[e.key];
-    if (target) {
-      document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (target) document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
   });
 }
 
-/* ── Mobile command buttons ─────────────────────────────────────────── */
+/* ── Mobile quick-command buttons ──────────────────────────────────── */
 function initMobileCommands() {
   document.querySelectorAll('[data-cmd]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const cmd = btn.getAttribute('data-cmd');
-      Terminal.execute(cmd);
+      Terminal.execute(btn.getAttribute('data-cmd'));
       document.getElementById('term-body')?.scrollIntoView({ behavior: 'smooth' });
     });
   });
 }
 
-/* ── Utilities ──────────────────────────────────────────────────────── */
-function escHtml(s) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-/* ── Init ───────────────────────────────────────────────────────────── */
+/* ── Init ──────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   Network.init();
   initMetrics();

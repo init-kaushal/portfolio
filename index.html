@@ -51,8 +51,9 @@
   <!-- Network canvas (behind everything) -->
   <canvas id="net-canvas" aria-hidden="true"></canvas>
 
-  <!-- CRT overlay -->
+  <!-- CRT overlay + grain -->
   <div class="crt" aria-hidden="true"></div>
+  <div class="crt-grain" aria-hidden="true"></div>
 
   <!-- Boot screen -->
   <div id="boot-screen" class="boot-screen" role="status" aria-live="polite">
@@ -137,32 +138,32 @@
           <p class="metrics-header">// system metrics</p>
           <div class="metrics-grid">
             <div class="metric">
-              <div class="metric-num" data-target="500" data-suffix="k+">0</div>
+              <div class="metric-num" data-target="500" data-suffix="k+">500k+</div>
               <div class="metric-label">events / day</div>
               <div class="metric-delta">webhook pipeline</div>
             </div>
             <div class="metric">
-              <div class="metric-num" data-target="12" data-suffix="+">0</div>
+              <div class="metric-num" data-target="12" data-suffix="+">12+</div>
               <div class="metric-label">services traced</div>
               <div class="metric-delta">Tempo + Grafana</div>
             </div>
             <div class="metric">
-              <div class="metric-num" data-target="80" data-suffix="%+">0</div>
+              <div class="metric-num" data-target="80" data-suffix="%+">80%+</div>
               <div class="metric-label">team adoption</div>
               <div class="metric-delta">poirot agent</div>
             </div>
             <div class="metric">
-              <div class="metric-num" data-target="2" data-suffix="h+→30m">2</div>
+              <div class="metric-num" style="font-size:var(--fs-xl);letter-spacing:-.01em">2h+ → &lt;30m</div>
               <div class="metric-label">escalation time</div>
-              <div class="metric-delta">2h+ → &lt;30 min</div>
+              <div class="metric-delta">poirot agent</div>
             </div>
             <div class="metric">
-              <div class="metric-num" data-target="5" data-suffix="+">0</div>
+              <div class="metric-num" data-target="5" data-suffix="+">5+</div>
               <div class="metric-label">years exp</div>
               <div class="metric-delta">backend systems</div>
             </div>
             <div class="metric">
-              <div class="metric-num" data-target="0" data-suffix="">0</div>
+              <div class="metric-num">0</div>
               <div class="metric-label">downtime</div>
               <div class="metric-delta">Istio migration</div>
             </div>
@@ -308,7 +309,7 @@
 
     <footer class="footer">
       <div class="section-wrap">
-        <p>kaushal sharma · built with IBM Plex Mono + vanilla js</p>
+        <p>built with 🤖 by <a href="https://www.linkedin.com/in/kaushal-kishor-sharma" target="_blank" rel="noopener" class="out-link">Kaushal Sharma</a></p>
       </div>
     </footer>
 
