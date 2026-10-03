@@ -23,7 +23,6 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- display=swap prevents invisible text during font load (FOUT instead of FOIT) -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
   <link href="assets/css/style.css" rel="stylesheet">
@@ -49,193 +48,284 @@
 </head>
 <body>
 
-  <!-- ═══ NAV ═══ -->
-  <nav class="nav" id="nav">
-    <div class="container nav-inner">
-      <a href="#hero" class="nav-logo">KS<span class="nav-dot">.</span></a>
-      <div class="nav-links">
-        <a href="#about" class="nav-link">about</a>
-        <a href="#experience" class="nav-link">experience</a>
-        <a href="#projects" class="nav-link">projects</a>
-        <a href="#contact" class="nav-link">contact</a>
-      </div>
+  <!-- Network canvas (behind everything) -->
+  <canvas id="net-canvas" aria-hidden="true"></canvas>
+
+  <!-- CRT overlay -->
+  <div class="crt" aria-hidden="true"></div>
+
+  <!-- Boot screen -->
+  <div id="boot-screen" class="boot-screen" role="status" aria-live="polite">
+    <div class="boot-content">
+      <div id="boot-lines" class="boot-lines" aria-label="System boot sequence"></div>
+      <button class="boot-skip" id="boot-skip" aria-label="Skip boot sequence">skip [esc / any key]</button>
     </div>
-  </nav>
+  </div>
 
-  <!-- ═══ HERO ═══ -->
-  <section id="hero" class="hero">
-    <div class="container">
-      <p class="hero-prompt reveal">~$</p>
-      <h1 class="hero-name reveal">kaushal sharma<span class="cursor"></span></h1>
-      <p class="hero-role reveal">backend engineer</p>
-      <p class="hero-tagline reveal">building systems that ship,<br>scale, and stay up.</p>
-      <p class="hero-meta reveal">bangalore · rapidai · go · python</p>
-      <div class="hero-actions reveal">
-        <a href="assets/files/Kaushal_5YOE.pdf" target="_blank" rel="noopener" class="hero-link">↓ resume</a>
-        <a href="#contact" class="hero-link">→ contact</a>
+  <!-- ══ Page ═══════════════════════════════════════════════════════════ -->
+  <div class="page-wrap">
+
+    <!-- ══ Terminal window ═══════════════════════════════════════════════ -->
+    <div class="term-window" role="application" aria-label="Interactive terminal">
+
+      <!-- Title bar -->
+      <div class="term-titlebar" aria-hidden="true">
+        <div class="term-dots">
+          <span class="term-dot term-dot-r"></span>
+          <span class="term-dot term-dot-y"></span>
+          <span class="term-dot term-dot-g"></span>
+        </div>
+        <span class="term-title">kaushal@portfolio: ~</span>
+        <nav class="term-nav-links" aria-label="Section navigation">
+          <a href="#about"      class="term-nav-link">about</a>
+          <a href="#experience" class="term-nav-link">experience</a>
+          <a href="#projects"   class="term-nav-link">projects</a>
+          <a href="#skills"     class="term-nav-link">skills</a>
+          <a href="#contact"    class="term-nav-link">contact</a>
+        </nav>
       </div>
-    </div>
-  </section>
 
-  <!-- ═══ ABOUT ═══ -->
-  <section id="about">
-    <div class="container">
-      <span class="label reveal">// about</span>
-      <div class="about-body reveal">
-        <p>I'm a backend engineer who enjoys working on systems that need to be fast, reliable, and scalable. Over the past five years, I've built messaging platforms, webhook pipelines, Kubernetes-native platforms, and AI agents — mostly using Go, Python, and a mix of AWS and GCP services.</p>
-        <p>Lately that's meant building on-prem Kubernetes deployments for hospital-scale workloads, instrumenting distributed tracing across a dozen services, and shipping AI agents that help platform teams resolve incidents faster. I care about writing clean, maintainable code and making the right trade-offs between speed and complexity.</p>
-        <p>Outside of work, you'll find me backpacking, reading, or on a badminton court.</p>
+      <!-- Mobile quick-command bar -->
+      <div class="mobile-cmds" aria-label="Quick commands">
+        <button class="mobile-cmd-btn" data-cmd="whoami">whoami</button>
+        <button class="mobile-cmd-btn" data-cmd="about">about</button>
+        <button class="mobile-cmd-btn" data-cmd="experience">experience</button>
+        <button class="mobile-cmd-btn" data-cmd="projects">projects</button>
+        <button class="mobile-cmd-btn" data-cmd="skills">skills</button>
+        <button class="mobile-cmd-btn" data-cmd="neofetch">neofetch</button>
+        <button class="mobile-cmd-btn" data-cmd="contact">contact</button>
+        <button class="mobile-cmd-btn" data-cmd="resume">resume</button>
       </div>
-      <div class="about-details reveal">
-        <div class="detail-row"><span class="detail-key">location</span><span class="detail-val">Bangalore, India</span></div>
-        <div class="detail-row"><span class="detail-key">email</span><span class="detail-val">kaushalworkss@gmail.com</span></div>
-        <div class="detail-row"><span class="detail-key">education</span><span class="detail-val">IIIT Jabalpur — B.Tech CSE (2017–2021)</span></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ═══ EXPERIENCE ═══ -->
-  <section id="experience">
-    <div class="container">
-      <span class="label reveal">// experience</span>
-      <div class="exp-list">
+      <!-- Terminal body -->
+      <div class="term-body" id="term-body" tabindex="-1">
+        <p class="term-lastlogin" aria-label="Last login info">
+          Last login: <span id="last-login-time"></span> on portfolio
+        </p>
 
-        <div class="exp-role reveal">
-          <div class="exp-header">
-            <span class="exp-company">RapidAI</span>
-            <span class="exp-dates">Jun 2023–present</span>
-          </div>
-          <p class="exp-title">Senior Software Engineer, Platform</p>
-          <ul class="exp-bullets">
-            <li>Built on-prem Kubernetes deployment pipeline for hospital-scale workloads using Helm and ArgoCD</li>
-            <li>Instrumented distributed tracing across 12+ services (Tempo + Grafana)</li>
-            <li>Shipped AI platform agent (poirot) that cut escalation resolution time from 2h+ to under 30 minutes with 80%+ adoption</li>
-            <li>Designed webhook ingestion pipeline handling 500k+ events/day</li>
-          </ul>
-        </div>
+        <!-- Output goes here -->
+        <div id="term-output" aria-live="polite" aria-label="Terminal output"></div>
 
-        <div class="exp-role reveal">
-          <div class="exp-header">
-            <span class="exp-company">Eka Care</span>
-            <span class="exp-dates">Jul 2021–Jun 2023</span>
-          </div>
-          <p class="exp-title">Software Engineer</p>
-          <ul class="exp-bullets">
-            <li>Built core prescription and appointment microservices in Go</li>
-            <li>Migrated monolith services to Istio service mesh with zero downtime</li>
-            <li>Led WhatsApp integration layer powering patient notifications at scale</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ PROJECTS ═══ -->
-  <section id="projects">
-    <div class="container">
-      <span class="label reveal">// projects</span>
-      <div class="projects-list">
-
-        <div class="project-item reveal">
-          <div class="project-top">
-            <span class="project-cmd">$ poirot run</span>
-            <a href="https://github.com/init-kaushal/poirot" target="_blank" rel="noopener" class="project-link" aria-label="poirot on GitHub">↗</a>
-          </div>
-          <p class="project-desc">Point-in-time reliability, cost and change-risk assessment for Kubernetes clusters.</p>
-          <p class="project-tags">go &nbsp; kubernetes &nbsp; prometheus &nbsp; llm</p>
-        </div>
-
-        <div class="project-item reveal">
-          <div class="project-top">
-            <span class="project-cmd">$ echo-health</span>
-            <span class="project-badge">🏆 1st · Ekathon 2025</span>
-            <a href="https://github.com/init-kaushal/echo-health" target="_blank" rel="noopener" class="project-link" aria-label="echo-health on GitHub">↗</a>
-          </div>
-          <p class="project-desc">Doctors send a voice note on WhatsApp; bot delivers the structured prescription back.</p>
-          <p class="project-tags">python &nbsp; fastapi &nbsp; aws</p>
-        </div>
-
-        <div class="project-item reveal">
-          <div class="project-top">
-            <span class="project-cmd">$ skim build</span>
-            <a href="https://github.com/init-kaushal/skim" target="_blank" rel="noopener" class="project-link" aria-label="skim on GitHub">↗</a>
-          </div>
-          <p class="project-desc">Claude Code plugin — intercepts oversized tool calls and substitutes a Haiku digest.</p>
-          <p class="project-tags">go &nbsp; claude api &nbsp; mcp</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ SKILLS ═══ -->
-  <section id="skills">
-    <div class="container">
-      <span class="label reveal">// skills</span>
-      <div class="skills-list reveal">
-        <div class="skill-row">
-          <span class="skill-cat">systems</span>
-          <span class="skill-vals">go · python · kubernetes · prometheus · grafana</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-cat">cloud</span>
-          <span class="skill-vals">aws · gcp · docker · terraform</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-cat">backend</span>
-          <span class="skill-vals">postgresql · redis · kafka · grpc · rest</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-cat">ai</span>
-          <span class="skill-vals">claude api · mcp · ai agents</span>
+        <!-- Input row -->
+        <div class="term-input-row">
+          <span class="term-prompt-label" aria-hidden="true">kaushal@portfolio:~$&nbsp;</span>
+          <input
+            type="text"
+            id="term-input"
+            class="term-input"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="Terminal command input — type 'help' for available commands"
+            placeholder=""
+          >
+          <span class="cursor-blink" aria-hidden="true"></span>
         </div>
       </div>
-    </div>
-  </section>
+    </div><!-- /term-window -->
 
-  <!-- ═══ CONTACT ═══ -->
-  <section id="contact">
-    <div class="container">
-      <span class="label reveal">// contact</span>
-      <div class="contact-body reveal">
-        <p class="contact-intro">Have a question or just want to say hi?</p>
-        <a href="mailto:kaushalworkss@gmail.com" class="contact-email">kaushalworkss@gmail.com</a>
-        <div class="contact-links">
-          <div class="contact-row">
-            <span class="contact-key">github</span>
-            <a href="https://github.com/init-kaushal" target="_blank" rel="noopener" class="contact-val">→ init-kaushal</a>
-          </div>
-          <div class="contact-row">
-            <span class="contact-key">linkedin</span>
-            <a href="https://www.linkedin.com/in/kaushal-kishor-sharma" target="_blank" rel="noopener" class="contact-val">→ kaushal-kishor-sharma</a>
-          </div>
-          <div class="contact-row">
-            <span class="contact-key">leetcode</span>
-            <a href="https://leetcode.com/u/sharmakaushal" target="_blank" rel="noopener" class="contact-val">→ sharmakaushal</a>
-          </div>
-          <div class="contact-row">
-            <span class="contact-key">x</span>
-            <a href="https://x.com/kaushaltwt" target="_blank" rel="noopener" class="contact-val">→ kaushaltwt</a>
+    <!-- ══ Static sections (scroll below terminal) ════════════════════════
+         These exist for SEO, accessibility, and non-terminal users.
+         Terminal commands output the same content inline above.
+    ════════════════════════════════════════════════════════════════════ -->
+    <main id="main-content">
+
+      <!-- ── Metrics ─────────────────────────────────────────────────── -->
+      <section class="metrics-section reveal" aria-label="Engineering metrics">
+        <div class="section-wrap">
+          <p class="metrics-header">// system metrics</p>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-num" data-target="500" data-suffix="k+">0</div>
+              <div class="metric-label">events / day</div>
+              <div class="metric-delta">webhook pipeline</div>
+            </div>
+            <div class="metric">
+              <div class="metric-num" data-target="12" data-suffix="+">0</div>
+              <div class="metric-label">services traced</div>
+              <div class="metric-delta">Tempo + Grafana</div>
+            </div>
+            <div class="metric">
+              <div class="metric-num" data-target="80" data-suffix="%+">0</div>
+              <div class="metric-label">team adoption</div>
+              <div class="metric-delta">poirot agent</div>
+            </div>
+            <div class="metric">
+              <div class="metric-num" data-target="2" data-suffix="h+→30m">2</div>
+              <div class="metric-label">escalation time</div>
+              <div class="metric-delta">2h+ → &lt;30 min</div>
+            </div>
+            <div class="metric">
+              <div class="metric-num" data-target="5" data-suffix="+">0</div>
+              <div class="metric-label">years exp</div>
+              <div class="metric-delta">backend systems</div>
+            </div>
+            <div class="metric">
+              <div class="metric-num" data-target="0" data-suffix="">0</div>
+              <div class="metric-label">downtime</div>
+              <div class="metric-delta">Istio migration</div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <footer class="footer">
-    <div class="container">
-      <p>kaushal sharma · built with IBM Plex Mono + vanilla html</p>
-    </div>
-  </footer>
+      <!-- ── About ───────────────────────────────────────────────────── -->
+      <section class="sec" id="about" aria-label="About">
+        <div class="section-wrap">
+          <span class="sec-label reveal">// about</span>
+          <div class="about-body">
+            <p class="reveal">I'm a backend engineer who enjoys working on systems that need to be fast, reliable, and scalable. Over the past five years, I've built messaging platforms, webhook pipelines, Kubernetes-native platforms, and AI agents — mostly using Go, Python, and a mix of AWS and GCP services.</p>
+            <p class="reveal">Lately that's meant building on-prem Kubernetes deployments for hospital-scale workloads, instrumenting distributed tracing across a dozen services, and shipping AI agents that help platform teams resolve incidents faster. I care about writing clean, maintainable code and making the right trade-offs between speed and complexity.</p>
+            <p class="reveal">Outside of work, you'll find me backpacking, reading, or on a badminton court.</p>
+          </div>
+          <div class="detail-grid reveal">
+            <div class="detail-row"><span class="detail-key">location</span><span class="detail-val">Bangalore, India</span></div>
+            <div class="detail-row"><span class="detail-key">email</span><span class="detail-val"><a href="mailto:kaushalworkss@gmail.com" class="out-link">kaushalworkss@gmail.com</a></span></div>
+            <div class="detail-row"><span class="detail-key">education</span><span class="detail-val">IIIT Jabalpur — B.Tech CSE (2017–2021)</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Experience ───────────────────────────────────────────────── -->
+      <section class="sec" id="experience" aria-label="Work experience">
+        <div class="section-wrap">
+          <span class="sec-label reveal">// experience</span>
+          <div class="exp-list">
+
+            <div class="reveal">
+              <div class="exp-role-header">
+                <span class="exp-company">RapidAI</span>
+                <span class="exp-dates">Jun 2023 – Present</span>
+              </div>
+              <p class="exp-title">Senior Software Engineer, Platform</p>
+              <ul class="exp-bullets">
+                <li>Built on-prem Kubernetes deployment pipeline for hospital-scale workloads using Helm and ArgoCD</li>
+                <li>Instrumented distributed tracing across 12+ services (Tempo + Grafana)</li>
+                <li>Shipped AI platform agent (poirot) that cut escalation resolution time from 2h+ to under 30 minutes with 80%+ adoption</li>
+                <li>Designed webhook ingestion pipeline handling 500k+ events/day</li>
+              </ul>
+            </div>
+
+            <div class="reveal">
+              <div class="exp-role-header">
+                <span class="exp-company">Eka Care</span>
+                <span class="exp-dates">Jul 2021 – Jun 2023</span>
+              </div>
+              <p class="exp-title">Software Engineer</p>
+              <ul class="exp-bullets">
+                <li>Built core prescription and appointment microservices in Go</li>
+                <li>Migrated monolith services to Istio service mesh with zero downtime</li>
+                <li>Led WhatsApp integration layer powering patient notifications at scale</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Projects ─────────────────────────────────────────────────── -->
+      <section class="sec" id="projects" aria-label="Projects">
+        <div class="section-wrap">
+          <span class="sec-label reveal">// projects</span>
+          <div class="proj-list">
+
+            <div class="proj-item reveal">
+              <div class="proj-top">
+                <span class="proj-cmd">$ poirot run</span>
+                <a href="https://github.com/init-kaushal/poirot" target="_blank" rel="noopener" class="proj-link" aria-label="poirot on GitHub">↗ github</a>
+              </div>
+              <p class="proj-desc">Point-in-time reliability, cost and change-risk assessment for Kubernetes clusters. Give it a kubeconfig and a poirot.yaml; run poirot run; read report.md.</p>
+              <p class="proj-tags">go &nbsp; kubernetes &nbsp; prometheus &nbsp; llm</p>
+            </div>
+
+            <div class="proj-item reveal">
+              <div class="proj-top">
+                <span class="proj-cmd">$ echo-health</span>
+                <span class="proj-badge">🏆 1st · Ekathon 2025</span>
+                <a href="https://github.com/init-kaushal/echo-health" target="_blank" rel="noopener" class="proj-link" aria-label="echo-health on GitHub">↗ github</a>
+              </div>
+              <p class="proj-desc">Doctors send a voice note on WhatsApp; bot delivers the structured prescription back.</p>
+              <p class="proj-tags">python &nbsp; fastapi &nbsp; aws</p>
+            </div>
+
+            <div class="proj-item reveal">
+              <div class="proj-top">
+                <span class="proj-cmd">$ skim build</span>
+                <a href="https://github.com/init-kaushal/skim" target="_blank" rel="noopener" class="proj-link" aria-label="skim on GitHub">↗ github</a>
+              </div>
+              <p class="proj-desc">Claude Code plugin — intercepts oversized tool calls and substitutes a Haiku digest, keeping your context window clean.</p>
+              <p class="proj-tags">go &nbsp; claude api &nbsp; mcp</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Skills ───────────────────────────────────────────────────── -->
+      <section class="sec" id="skills" aria-label="Skills">
+        <div class="section-wrap">
+          <span class="sec-label reveal">// skills</span>
+          <div class="skills-grid reveal">
+            <div class="skill-row"><span class="skill-cat">systems</span><span class="skill-vals">Go · Python · Kubernetes · Prometheus · Grafana</span></div>
+            <div class="skill-row"><span class="skill-cat">cloud</span><span class="skill-vals">AWS · GCP · Docker · Terraform · Helm · ArgoCD</span></div>
+            <div class="skill-row"><span class="skill-cat">backend</span><span class="skill-vals">PostgreSQL · Redis · Kafka · gRPC · REST</span></div>
+            <div class="skill-row"><span class="skill-cat">ai</span><span class="skill-vals">Claude API · MCP · AI Agents · LLMs</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Contact ──────────────────────────────────────────────────── -->
+      <section class="sec" id="contact" aria-label="Contact">
+        <div class="section-wrap">
+          <span class="sec-label reveal">// contact</span>
+          <div class="reveal">
+            <p class="contact-intro">Have a question or want to work together?</p>
+            <a href="mailto:kaushalworkss@gmail.com" class="contact-email">kaushalworkss@gmail.com</a>
+            <div class="contact-links">
+              <div class="contact-row">
+                <span class="contact-key">github</span>
+                <a href="https://github.com/init-kaushal" target="_blank" rel="noopener" class="contact-val">→ init-kaushal</a>
+              </div>
+              <div class="contact-row">
+                <span class="contact-key">linkedin</span>
+                <a href="https://www.linkedin.com/in/kaushal-kishor-sharma" target="_blank" rel="noopener" class="contact-val">→ kaushal-kishor-sharma</a>
+              </div>
+              <div class="contact-row">
+                <span class="contact-key">leetcode</span>
+                <a href="https://leetcode.com/u/sharmakaushal" target="_blank" rel="noopener" class="contact-val">→ sharmakaushal</a>
+              </div>
+              <div class="contact-row">
+                <span class="contact-key">x</span>
+                <a href="https://x.com/kaushaltwt" target="_blank" rel="noopener" class="contact-val">→ kaushaltwt</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main><!-- /main-content -->
+
+    <footer class="footer">
+      <div class="section-wrap">
+        <p>kaushal sharma · built with IBM Plex Mono + vanilla js</p>
+      </div>
+    </footer>
+
+  </div><!-- /page-wrap -->
+
+  <!-- Keyboard hint -->
+  <div class="key-hint" aria-hidden="true">TAB for autocomplete &nbsp;·&nbsp; ↑↓ history</div>
 
   <script>
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    /* Set last login time */
+    const d = new Date();
+    const el = document.getElementById('last-login-time');
+    if (el) el.textContent = d.toLocaleString('en-IN', {
+      weekday: 'short', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit', hour12: false
+    });
   </script>
-
+  <script src="assets/js/terminal.js"></script>
 </body>
 </html>
