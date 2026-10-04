@@ -115,6 +115,28 @@ const DATA = {
         '→ Linking PreToolUse hooks...',
       ],
     },
+    {
+      cmd: 'careeros init',
+      name: 'careeros',
+      url: 'https://github.com/init-kaushal/careeros',
+      landing: 'https://init-kaushal.github.io/careeros/',
+      desc: 'Markdown-native job-search workspace for Claude Code. One command scaffolds a structured workspace; the agent interviews you to build your profile; after that you chat your way through discovery, research, applications, outreach, interview prep, and offers.',
+      detail: [
+        'Your data — profile, pipeline, activity log — lives in a plain-text directory you own',
+        'No account, no cloud sync, no third-party access to your job search',
+        'Covers the full lifecycle: discovery · research · application · outreach · interviews · offers',
+        'Works with Claude Code (real browser via Claude-in-Chrome) or ChatGPT Projects',
+      ],
+      tags: ['python', 'claude code', 'ai agents'],
+      badge: null,
+      execSteps: [
+        '→ Scaffolding workspace directory...',
+        '→ Generating profile.md and boards.md...',
+        '→ Bootstrapping agent entry point (CLAUDE.md)...',
+        '→ Loading job-search skills...',
+        '→ Ready — open the directory in Claude Code to begin',
+      ],
+    },
   ],
   skills: [
     { cat: 'systems', vals: 'Go · Python · Kubernetes · Prometheus · Grafana' },
@@ -122,12 +144,11 @@ const DATA = {
     { cat: 'backend', vals: 'PostgreSQL · Redis · Kafka · gRPC · REST' },
     { cat: 'ai', vals: 'Claude API · MCP · AI Agents · LLMs' },
   ],
-  /* Update these to reflect what you're currently working on */
   exploring: {
-    building: '[UPDATE: what are you actively building right now?]',
-    investigating: '[UPDATE: what technical question are you working through?]',
-    learning: '[UPDATE: what tool or approach are you evaluating?]',
-    next: '[UPDATE: what experiment are you planning next?]',
+    building: 'careeros — a privacy-first, markdown-native job search workspace that runs in Claude Code',
+    investigating: 'Jev · hackathons to put skills to actual use · trails longer than is sensible',
+    learning: 'table tennis · guitar · what the air fryer is actually capable of',
+    next: 'Agent Harness · CKAD and CKS · learning to not immediately sink in a pool',
   },
 };
 
@@ -322,6 +343,7 @@ cmd('help', () => `<div class="out-section">
   <div class="out-row"><span class="out-key">poirot run</span><span class="out-val">Execute reliability assessment</span></div>
   <div class="out-row"><span class="out-key">echo-health</span><span class="out-val">Run echo-health demo</span></div>
   <div class="out-row"><span class="out-key">skim build</span><span class="out-val">Build the skim plugin</span></div>
+  <div class="out-row"><span class="out-key">careeros init</span><span class="out-val">Scaffold job-search workspace</span></div>
   <div class="out-row"><span class="out-key">skills</span><span class="out-val">Technical stack</span></div>
   <div class="out-row"><span class="out-key">education</span><span class="out-val">Education background</span></div>
   <div class="out-row"><span class="out-key">contact</span><span class="out-val">Contact information</span></div>
@@ -348,7 +370,8 @@ cmd('whoami', () => {
     <div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; RapidAI</div>
     <div class="out-whoami-bio">
       Building reliable, scalable backend systems and the infrastructure behind them.<br>
-      5+ yrs. Go · Python · Kubernetes · AWS · GCP
+      5+ yrs. Go · Python · Kubernetes · AWS · GCP<br>
+      <span class="out-muted">Distributed systems: because one machine failing was never enough trouble.</span>
     </div>`;
   Terminal.outputEl.appendChild(container);
   Terminal.scrollBottom();
@@ -385,9 +408,9 @@ cmd('about', () => {
   Terminal.setSection('about');
   return `<div class="out-section">
 <div class="out-label">// about</div>
-<p class="out-p">Five years building distributed backend systems and the infrastructure that keeps them running: event pipelines, Kubernetes-native deployment tooling, observability setups, and reliability tooling. Go is my primary language, Python when it fits, Kubernetes in most places I've worked.</p>
-<p class="out-p">At RapidAI I work on distributed systems and platform: automated Kubernetes deployments for hospital networks, distributed tracing across 12+ services, and an AI reliability agent that cut incident resolution from 2+ hours to under 30 minutes. At Eka Care before that, I built the backend for prescriptions and appointments, a high-throughput notification platform handling 1M+ messages a day, and a webhook system serving 50+ clients.</p>
-<p class="out-p">Outside work: backpacking, reading, badminton.</p>
+<p class="out-p">Five years building distributed backend systems and the infrastructure that keeps them running: event pipelines, Kubernetes-native deployment tooling, observability setups, and reliability tooling. Go is my primary language, Python when it fits, Kubernetes in most of the places I've worked.</p>
+<p class="out-p">At RapidAI: automated Kubernetes deployments for hospital networks, distributed tracing across 12+ services (because guessing where things break gets old fast), and an AI reliability agent that cut incident resolution from 2+ hours to under 30 minutes. At Eka Care before that: built the backend for prescriptions and appointments, a notification platform handling 1M+ messages a day, and a webhook system serving 50+ clients.</p>
+<p class="out-p">Outside work: backpacking, reading, badminton. Currently learning guitar and table tennis — simultaneously, which is ambitious.</p>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
   <div class="out-row"><span class="out-key">email</span><span class="out-val"><a href="mailto:${DATA.email}" class="out-link">${DATA.email}</a></span></div>
@@ -519,9 +542,10 @@ cmd('projects', () => {
 });
 
 /* individual project execution commands */
-cmd('poirot run', () => { execProject(DATA.projects[0]); return null; });
-cmd('echo-health', () => { execProject(DATA.projects[1]); return null; });
-cmd('skim build',  () => { execProject(DATA.projects[2]); return null; });
+cmd('poirot run',     () => { execProject(DATA.projects[0]); return null; });
+cmd('echo-health',   () => { execProject(DATA.projects[1]); return null; });
+cmd('skim build',    () => { execProject(DATA.projects[2]); return null; });
+cmd('careeros init', () => { execProject(DATA.projects[3]); return null; });
 
 cmd('skills', () => {
   Terminal.setSection('skills');
@@ -618,7 +642,7 @@ cmd('neofetch', () => {
 
 cmd('status', () => `<div class="out-section">
 <div class="out-label">// status</div>
-<div class="out-status-line"><span class="status-dot">●</span> Available for interesting opportunities</div>
+<div class="out-status-line"><span class="status-dot">●</span> Available for interesting opportunities. Uninteresting ones too, depending on the problem.</div>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
   <div class="out-row"><span class="out-key">currently</span><span class="out-val">@RapidAI — Senior Software Engineer · Distributed Systems &amp; Backend</span></div>
@@ -632,9 +656,9 @@ cmd('ls', () => `<div class="out-section">
   <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; experience/</div>
   <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; projects/</div>
   <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; skills/</div>
+  <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; exploring/</div>
   <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; contact/</div>
   <div><span class="ls-file">-rw-r--r--</span>&nbsp; resume.pdf</div>
-  <div><span class="ls-file">-rw-r--r--</span>&nbsp; exploring.json</div>
   <div><span class="ls-exec">-rwxr-xr-x</span>&nbsp; neofetch*</div>
 </div>
 </div>`);
@@ -717,6 +741,10 @@ cmd('fortune', () => {
     '"A distributed system is one in which the failure of a computer you didn\'t even know existed can render your own computer unusable." — Leslie Lamport',
     '"Premature optimization is the root of all evil." — Knuth',
     '"Kubernetes: because who needs simplicity when you can have eventual consistency?"',
+    '"It works on my cluster." — every platform engineer, once, before a 3am page',
+    '"Observability: the practice of realising, after the fact, what you should have measured from the start."',
+    '"The cloud is just someone else\'s computer. A distributed system is just several people\'s computers all disagreeing."',
+    '"Good distributed systems look boring. You only notice them when they stop being boring."',
   ];
   const f = fortunes[Math.floor(Math.random() * fortunes.length)];
   return `<div class="out-section"><div class="out-p out-amber">${f}</div></div>`;

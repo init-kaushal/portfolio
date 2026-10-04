@@ -475,8 +475,8 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .out-project-top { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; flex-wrap: wrap; }
 .out-cmd-green { font-size: var(--fs-md); font-weight: 400; color: var(--green); }
 .out-badge { font-size: var(--fs-xs); color: var(--amber); }
-.out-project-desc { font-size: var(--fs-md); font-weight: 300; color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 4px; }
-.out-project-tags { font-size: var(--fs-xs); color: var(--dim); letter-spacing: 0.04em; }
+.out-project-desc { font-size: var(--fs-md); font-weight: 300; color: var(--text); max-width: 560px; line-height: 1.7; margin-bottom: 4px; }
+.out-project-tags { font-size: var(--fs-xs); color: var(--muted); letter-spacing: 0.04em; }
 
 /* ls */
 .out-ls {
@@ -661,10 +661,10 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .proj-badge { font-size: var(--fs-xs); color: var(--amber); }
 .proj-link { font-size: var(--fs-xs); color: var(--cyan); margin-left: auto; transition: opacity 0.2s; }
 .proj-link:hover { opacity: 0.7; text-decoration: underline; }
-.proj-desc { font-size: var(--fs-md); font-weight: 300; color: var(--muted); max-width: 560px; line-height: 1.75; margin-bottom: 6px; }
-.proj-tags { font-size: var(--fs-xs); color: var(--dim); }
+.proj-desc { font-size: var(--fs-md); font-weight: 300; color: var(--text); max-width: 560px; line-height: 1.75; margin-bottom: 6px; }
+.proj-tags { font-size: var(--fs-xs); color: var(--muted); }
 .proj-detail { list-style: none; padding: 0; margin: 6px 0; display: flex; flex-direction: column; gap: 3px; }
-.proj-detail-line { font-size: var(--fs-xs); color: var(--dim); line-height: 1.5; }
+.proj-detail-line { font-size: var(--fs-xs); color: var(--muted); line-height: 1.5; }
 .proj-detail-line::before { content: '· '; color: var(--green); }
 
 /* ── Exploring section ───────────────────────────────────────────────── */
@@ -690,7 +690,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 }
 .out-detail-line {
   font-size: var(--fs-xs);
-  color: var(--dim);
+  color: var(--muted);
   line-height: 1.5;
   padding-left: 2px;
 }
@@ -702,7 +702,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 /* ── Skills section ──────────────────────────────────────────────────── */
 .skills-grid { display: flex; flex-direction: column; gap: 10px; }
 .skill-row { display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
-.skill-cat { font-size: var(--fs-xs); color: var(--muted); min-width: 72px; flex-shrink: 0; letter-spacing: 0.04em; }
+.skill-cat { font-size: var(--fs-xs); color: var(--cyan); min-width: 72px; flex-shrink: 0; letter-spacing: 0.04em; }
 .skill-vals { font-size: var(--fs-md); font-weight: 300; color: var(--text); }
 
 /* ── Contact section ─────────────────────────────────────────────────── */
@@ -722,7 +722,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .contact-links { display: flex; flex-direction: column; gap: 8px; }
 
 .contact-row { display: flex; gap: 20px; align-items: baseline; }
-.contact-key { font-size: var(--fs-xs); color: var(--muted); min-width: 72px; flex-shrink: 0; }
+.contact-key { font-size: var(--fs-xs); color: var(--cyan); min-width: 72px; flex-shrink: 0; }
 .contact-val { font-size: var(--fs-sm); color: var(--muted); transition: color 0.2s; }
 .contact-val:hover { color: var(--cyan); text-decoration: underline; }
 
