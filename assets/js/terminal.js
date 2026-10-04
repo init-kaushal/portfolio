@@ -20,10 +20,10 @@ const DATA = {
       title: 'Senior Software Engineer, Platform',
       period: 'Jun 2023 – Present',
       bullets: [
-        'Built on-prem Kubernetes deployment pipeline for hospital-scale workloads (Helm, ArgoCD)',
-        'Instrumented distributed tracing across 12+ services (Tempo + Grafana)',
-        'Shipped poirot AI agent — cut escalation resolution time from 2h+ to <30 min, 80%+ team adoption',
-        'Designed webhook ingestion pipeline handling 500k+ events/day',
+        'Built on-prem Kubernetes deployment pipeline for hospital-scale workloads — multi-tenant cluster management with Helm charts and ArgoCD for declarative GitOps deploys',
+        'Instrumented distributed tracing across 12+ services using Tempo and Grafana; gave the team line-of-sight into latency hotspots and failure paths across service boundaries',
+        'Shipped poirot AI agent for point-in-time reliability and change-risk assessments — cut escalation resolution time from 2h+ to under 30 minutes, 80%+ team adoption',
+        'Designed and built webhook ingestion pipeline handling 500k+ events/day — backend service handling high-throughput event processing at scale',
       ],
     },
     {
@@ -31,9 +31,9 @@ const DATA = {
       title: 'Software Engineer',
       period: 'Jul 2021 – Jun 2023',
       bullets: [
-        'Built core prescription and appointment microservices in Go',
-        'Migrated monolith services to Istio service mesh with zero downtime',
-        'Led WhatsApp integration layer powering patient notifications at scale',
+        'Built core prescription and appointment microservices in Go — transactional backend services powering Eka Care\'s patient-doctor workflows',
+        'Migrated monolith services to Istio service mesh with zero downtime — decomposed tightly coupled services into independently deployable microservices',
+        'Led the WhatsApp integration layer that powers patient appointment confirmations and prescription delivery at scale',
       ],
     },
   ],
@@ -300,7 +300,7 @@ cmd('whoami', () => {
     <div class="out-whoami-name">${DATA.name}</div>
     <div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; RapidAI</div>
     <div class="out-whoami-bio">
-      Building systems that stay up, agents that think, and tools that get out of the way.<br>
+      Building distributed systems, Kubernetes-native platforms, and AI agents.<br>
       5+ yrs — Go · Python · Kubernetes · AWS · GCP
     </div>`;
   Terminal.outputEl.appendChild(container);
