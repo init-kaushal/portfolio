@@ -79,8 +79,8 @@
         <span class="term-title">kaushal@portfolio: ~</span>
         <nav class="term-nav-links" aria-label="Section navigation">
           <a href="#about"      class="term-nav-link">about</a>
-          <a href="#experience" class="term-nav-link">experience</a>
           <a href="#projects"   class="term-nav-link">projects</a>
+          <a href="#experience" class="term-nav-link">experience</a>
           <a href="#skills"     class="term-nav-link">skills</a>
           <a href="#contact"    class="term-nav-link">contact</a>
         </nav>
@@ -89,13 +89,13 @@
       <!-- Mobile quick-command bar -->
       <div class="mobile-cmds" aria-label="Quick commands">
         <button class="mobile-cmd-btn" data-cmd="whoami">whoami</button>
+        <button class="mobile-cmd-btn" data-cmd="projects">projects</button>
         <button class="mobile-cmd-btn" data-cmd="about">about</button>
         <button class="mobile-cmd-btn" data-cmd="experience">experience</button>
-        <button class="mobile-cmd-btn" data-cmd="projects">projects</button>
         <button class="mobile-cmd-btn" data-cmd="skills">skills</button>
-        <button class="mobile-cmd-btn" data-cmd="neofetch">neofetch</button>
         <button class="mobile-cmd-btn" data-cmd="contact">contact</button>
         <button class="mobile-cmd-btn" data-cmd="resume">resume</button>
+        <button class="mobile-cmd-btn" data-cmd="neofetch">neofetch</button>
       </div>
 
       <!-- Terminal body -->
@@ -175,15 +175,97 @@
       <section class="sec" id="about" aria-label="About">
         <div class="section-wrap">
           <span class="sec-label reveal">// about</span>
+          <div class="about-focus reveal">
+            <span class="focus-tag">Distributed Systems</span>
+            <span class="focus-sep">/</span>
+            <span class="focus-tag">Backend</span>
+            <span class="focus-sep">/</span>
+            <span class="focus-tag">Platform</span>
+            <span class="focus-sep">/</span>
+            <span class="focus-tag">AI · Developer Tools</span>
+          </div>
           <div class="about-body">
-            <p class="reveal">Five years building distributed backend systems and the infrastructure that keeps them running: event pipelines, Kubernetes-native deployment tooling, observability setups, and reliability tooling. Go is my primary language, Python when it fits, Kubernetes in most of the places I've worked.</p>
-            <p class="reveal">At RapidAI: automated Kubernetes deployments for hospital networks, distributed tracing across 12+ services (because guessing where things break gets old fast), and an AI reliability agent that cut incident resolution from 2+ hours to under 30 minutes. At Eka Care before that: built the backend for prescriptions and appointments, a notification platform handling 1M+ messages a day, and a webhook system serving 50+ clients.</p>
-            <p class="reveal">Outside work: backpacking, reading, badminton.</p>
+            <p class="reveal">Five years building distributed backend systems. Go primarily, Python when it fits, Kubernetes in most of the places I've worked.</p>
+            <p class="reveal">At RapidAI: automated Kubernetes deployments for hospital networks, distributed tracing across 12+ services, and an AI reliability agent that cut incident resolution from 2h+ to under 30 minutes. At Eka Care: notification platform handling 1M+ messages a day, webhook system serving 50+ clients, Go backend for core clinical workflows.</p>
+            <p class="reveal">Outside work: backpacking, reading, badminton. Guitar and table tennis — simultaneously, which is ambitious.</p>
           </div>
           <div class="detail-grid reveal">
             <div class="detail-row"><span class="detail-key">location</span><span class="detail-val">Bangalore, India</span></div>
             <div class="detail-row"><span class="detail-key">email</span><span class="detail-val"><a href="mailto:kaushalworkss@gmail.com" class="out-link">kaushalworkss@gmail.com</a></span></div>
             <div class="detail-row"><span class="detail-key">education</span><span class="detail-val">IIIT Jabalpur · B.Tech CSE · 2017–2021</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Projects ─────────────────────────────────────────────────── -->
+      <section class="sec" id="projects" aria-label="Projects">
+        <div class="section-wrap">
+          <span class="sec-label reveal">// projects</span>
+          <div class="proj-list">
+
+            <div class="proj-item reveal">
+              <div class="proj-top">
+                <span class="proj-cmd">$ careeros init</span>
+                <a href="https://init-kaushal.github.io/careeros/" target="_blank" rel="noopener" class="proj-link" aria-label="careeros site">↗ site</a>
+                <a href="https://github.com/init-kaushal/careeros" target="_blank" rel="noopener" class="proj-link" aria-label="careeros on GitHub">↗ github</a>
+              </div>
+              <p class="proj-desc">Markdown-native job-search workspace for Claude Code. One command scaffolds a structured workspace; the agent interviews you to build your profile; after that you chat your way through discovery, research, applications, outreach, interview prep, and offers.</p>
+              <ul class="proj-detail">
+                <li class="proj-detail-line">Your data — profile, pipeline, activity log — lives in a plain-text directory you own</li>
+                <li class="proj-detail-line">No account, no cloud sync, no third-party access to your job search</li>
+                <li class="proj-detail-line">Covers the full lifecycle: discovery · research · application · outreach · interviews · offers</li>
+                <li class="proj-detail-line">Works with Claude Code (real browser via Claude-in-Chrome) or ChatGPT Projects</li>
+              </ul>
+              <p class="proj-tags">python &nbsp; claude code &nbsp; ai agents</p>
+            </div>
+
+            <div class="proj-item reveal">
+              <div class="proj-top">
+                <span class="proj-cmd">$ poirot run</span>
+                <a href="https://init-kaushal.github.io/poirot/" target="_blank" rel="noopener" class="proj-link" aria-label="poirot site">↗ site</a>
+                <a href="https://github.com/init-kaushal/poirot" target="_blank" rel="noopener" class="proj-link" aria-label="poirot on GitHub">↗ github</a>
+              </div>
+              <p class="proj-desc">Point-in-time reliability, cost, and change-risk report for a Kubernetes cluster. Give it a kubeconfig and a poirot.yaml; run poirot run; read report.md.</p>
+              <ul class="proj-detail">
+                <li class="proj-detail-line">Runs deterministic analyzers: reliability · SLO · cost (OpenCost / estimated) · change-risk</li>
+                <li class="proj-detail-line">LLM layer is additive: enriches warning+ findings with probable cause and an executive summary</li>
+                <li class="proj-detail-line">Works without an API key — the deterministic report is always complete</li>
+                <li class="proj-detail-line">Output: report.json + report.md · exits 0 (clean) / 1 (warnings) / 2 (critical)</li>
+              </ul>
+              <p class="proj-tags">go &nbsp; kubernetes &nbsp; prometheus &nbsp; llm</p>
+            </div>
+
+            <div class="proj-item reveal">
+              <div class="proj-top">
+                <span class="proj-cmd">$ skim build</span>
+                <a href="https://init-kaushal.github.io/skim/" target="_blank" rel="noopener" class="proj-link" aria-label="skim site">↗ site</a>
+                <a href="https://github.com/init-kaushal/skim" target="_blank" rel="noopener" class="proj-link" aria-label="skim on GitHub">↗ github</a>
+              </div>
+              <p class="proj-desc">Claude Code plugin that intercepts oversized Read, Grep, and Bash calls before they run and substitutes a compact Haiku digest, keeping the main session context clean.</p>
+              <ul class="proj-detail">
+                <li class="proj-detail-line">Hooks Claude Code's PreToolUse event: denies the call, puts a digest in permissionDecisionReason</li>
+                <li class="proj-detail-line">Routes expensive calls to a cheap Haiku worker instead of the session model</li>
+                <li class="proj-detail-line">Model-agnostic on the driving side — works with Opus, Sonnet, Fable, or any future model</li>
+                <li class="proj-detail-line">Fails open: if the hook exits 0, the original tool runs completely normally</li>
+              </ul>
+              <p class="proj-tags">go &nbsp; claude api &nbsp; mcp</p>
+            </div>
+
+            <div class="proj-item reveal">
+              <div class="proj-top">
+                <span class="proj-cmd">$ echo-health</span>
+                <span class="proj-badge">🏆 1st · Ekathon 2025</span>
+                <a href="https://github.com/init-kaushal/echo-health" target="_blank" rel="noopener" class="proj-link" aria-label="echo-health on GitHub">↗ github</a>
+              </div>
+              <p class="proj-desc">A doctor sends a voice note on WhatsApp; a bot delivers the structured prescription back.</p>
+              <ul class="proj-detail">
+                <li class="proj-detail-line">Two decoupled webhooks: voice note in (Interakt) → Eka Care AI (Ekascribe) → prescription callback out</li>
+                <li class="proj-detail-line">request_id correlates async prescription generation back to the originating WhatsApp chat</li>
+                <li class="proj-detail-line">Stack: FastAPI · Eka Care API · Interakt (WhatsApp Business) · httpx</li>
+              </ul>
+              <p class="proj-tags">python &nbsp; fastapi &nbsp; aws</p>
+            </div>
+
           </div>
         </div>
       </section>
@@ -232,79 +314,6 @@
                 <li>Contributed to the WebSphere MQ High Availability architecture, reducing message latency by 20%</li>
                 <li>Built Java programs processing 1K+ messages per second across applications and cloud platforms</li>
               </ul>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- ── Projects ─────────────────────────────────────────────────── -->
-      <section class="sec" id="projects" aria-label="Projects">
-        <div class="section-wrap">
-          <span class="sec-label reveal">// projects</span>
-          <div class="proj-list">
-
-            <div class="proj-item reveal">
-              <div class="proj-top">
-                <span class="proj-cmd">$ poirot run</span>
-                <a href="https://init-kaushal.github.io/poirot/" target="_blank" rel="noopener" class="proj-link" aria-label="poirot site">↗ site</a>
-                <a href="https://github.com/init-kaushal/poirot" target="_blank" rel="noopener" class="proj-link" aria-label="poirot on GitHub">↗ github</a>
-              </div>
-              <p class="proj-desc">Point-in-time reliability, cost, and change-risk report for a Kubernetes cluster. Give it a kubeconfig and a poirot.yaml; run poirot run; read report.md.</p>
-              <ul class="proj-detail">
-                <li class="proj-detail-line">Runs deterministic analyzers: reliability · SLO · cost (OpenCost / estimated) · change-risk</li>
-                <li class="proj-detail-line">LLM layer is additive: enriches warning+ findings with probable cause and an executive summary</li>
-                <li class="proj-detail-line">Works without an API key — the deterministic report is always complete</li>
-                <li class="proj-detail-line">Output: report.json + report.md · exits 0 (clean) / 1 (warnings) / 2 (critical)</li>
-              </ul>
-              <p class="proj-tags">go &nbsp; kubernetes &nbsp; prometheus &nbsp; llm</p>
-            </div>
-
-            <div class="proj-item reveal">
-              <div class="proj-top">
-                <span class="proj-cmd">$ echo-health</span>
-                <span class="proj-badge">🏆 1st · Ekathon 2025</span>
-                <a href="https://github.com/init-kaushal/echo-health" target="_blank" rel="noopener" class="proj-link" aria-label="echo-health on GitHub">↗ github</a>
-              </div>
-              <p class="proj-desc">A doctor sends a voice note on WhatsApp; a bot delivers the structured prescription back.</p>
-              <ul class="proj-detail">
-                <li class="proj-detail-line">Two decoupled webhooks: voice note in (Interakt) → Eka Care AI (Ekascribe) → prescription callback out</li>
-                <li class="proj-detail-line">request_id correlates async prescription generation back to the originating WhatsApp chat</li>
-                <li class="proj-detail-line">Stack: FastAPI · Eka Care API · Interakt (WhatsApp Business) · httpx</li>
-              </ul>
-              <p class="proj-tags">python &nbsp; fastapi &nbsp; aws</p>
-            </div>
-
-            <div class="proj-item reveal">
-              <div class="proj-top">
-                <span class="proj-cmd">$ skim build</span>
-                <a href="https://init-kaushal.github.io/skim/" target="_blank" rel="noopener" class="proj-link" aria-label="skim site">↗ site</a>
-                <a href="https://github.com/init-kaushal/skim" target="_blank" rel="noopener" class="proj-link" aria-label="skim on GitHub">↗ github</a>
-              </div>
-              <p class="proj-desc">Claude Code plugin that intercepts oversized Read, Grep, and Bash calls before they run and substitutes a compact Haiku digest, keeping the main session context clean.</p>
-              <ul class="proj-detail">
-                <li class="proj-detail-line">Hooks Claude Code's PreToolUse event: denies the call, puts a digest in permissionDecisionReason</li>
-                <li class="proj-detail-line">Routes expensive calls to a cheap Haiku worker instead of the session model</li>
-                <li class="proj-detail-line">Model-agnostic on the driving side — works with Opus, Sonnet, Fable, or any future model</li>
-                <li class="proj-detail-line">Fails open: if the hook exits 0, the original tool runs completely normally</li>
-              </ul>
-              <p class="proj-tags">go &nbsp; claude api &nbsp; mcp</p>
-            </div>
-
-            <div class="proj-item reveal">
-              <div class="proj-top">
-                <span class="proj-cmd">$ careeros init</span>
-                <a href="https://init-kaushal.github.io/careeros/" target="_blank" rel="noopener" class="proj-link" aria-label="careeros site">↗ site</a>
-                <a href="https://github.com/init-kaushal/careeros" target="_blank" rel="noopener" class="proj-link" aria-label="careeros on GitHub">↗ github</a>
-              </div>
-              <p class="proj-desc">Markdown-native job-search workspace for Claude Code. One command scaffolds a structured workspace; the agent interviews you to build your profile; after that you chat your way through discovery, research, applications, outreach, interview prep, and offers.</p>
-              <ul class="proj-detail">
-                <li class="proj-detail-line">Your data — profile, pipeline, activity log — lives in a plain-text directory you own</li>
-                <li class="proj-detail-line">No account, no cloud sync, no third-party access to your job search</li>
-                <li class="proj-detail-line">Covers the full lifecycle: discovery · research · application · outreach · interviews · offers</li>
-                <li class="proj-detail-line">Works with Claude Code (real browser via Claude-in-Chrome) or ChatGPT Projects</li>
-              </ul>
-              <p class="proj-tags">python &nbsp; claude code &nbsp; ai agents</p>
             </div>
 
           </div>

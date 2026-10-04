@@ -49,6 +49,28 @@ const DATA = {
   ],
   projects: [
     {
+      cmd: 'careeros init',
+      name: 'careeros',
+      url: 'https://github.com/init-kaushal/careeros',
+      landing: 'https://init-kaushal.github.io/careeros/',
+      desc: 'Markdown-native job-search workspace for Claude Code. One command scaffolds a structured workspace; the agent interviews you to build your profile; after that you chat your way through discovery, research, applications, outreach, interview prep, and offers.',
+      detail: [
+        'Your data — profile, pipeline, activity log — lives in a plain-text directory you own',
+        'No account, no cloud sync, no third-party access to your job search',
+        'Covers the full lifecycle: discovery · research · application · outreach · interviews · offers',
+        'Works with Claude Code (real browser via Claude-in-Chrome) or ChatGPT Projects',
+      ],
+      tags: ['python', 'claude code', 'ai agents'],
+      badge: null,
+      execSteps: [
+        '→ Scaffolding workspace directory...',
+        '→ Generating profile.md and boards.md...',
+        '→ Bootstrapping agent entry point (CLAUDE.md)...',
+        '→ Loading job-search skills...',
+        '→ Ready — open the directory in Claude Code to begin',
+      ],
+    },
+    {
       cmd: 'poirot run',
       name: 'poirot',
       url: 'https://github.com/init-kaushal/poirot',
@@ -69,27 +91,6 @@ const DATA = {
         '→ Running change-risk analysis...',
         '→ LLM enrichment: correlating findings...',
         '→ Writing report.md...',
-      ],
-    },
-    {
-      cmd: 'echo-health',
-      name: 'echo-health',
-      url: 'https://github.com/init-kaushal/echo-health',
-      landing: null,
-      desc: 'A doctor sends a voice note on WhatsApp; a bot delivers the structured prescription back. Built at Ekathon 2025.',
-      detail: [
-        'Two decoupled webhooks: voice note in (Interakt) → Eka Care AI (Ekascribe) → prescription callback out',
-        'request_id correlates async prescription generation back to the originating WhatsApp chat',
-        'Stack: FastAPI · Eka Care API · Interakt (WhatsApp Business) · httpx',
-      ],
-      tags: ['python', 'fastapi', 'aws'],
-      badge: '🏆 1st · Ekathon 2025',
-      execSteps: [
-        '→ Listening on WhatsApp webhook...',
-        '→ Doctor voice note received...',
-        '→ Forwarding to Eka Care AI (Ekascribe)...',
-        '→ Waiting for prescription callback...',
-        '→ Formatting and delivering via Interakt...',
       ],
     },
     {
@@ -116,25 +117,24 @@ const DATA = {
       ],
     },
     {
-      cmd: 'careeros init',
-      name: 'careeros',
-      url: 'https://github.com/init-kaushal/careeros',
-      landing: 'https://init-kaushal.github.io/careeros/',
-      desc: 'Markdown-native job-search workspace for Claude Code. One command scaffolds a structured workspace; the agent interviews you to build your profile; after that you chat your way through discovery, research, applications, outreach, interview prep, and offers.',
+      cmd: 'echo-health',
+      name: 'echo-health',
+      url: 'https://github.com/init-kaushal/echo-health',
+      landing: null,
+      desc: 'A doctor sends a voice note on WhatsApp; a bot delivers the structured prescription back. Built at Ekathon 2025.',
       detail: [
-        'Your data — profile, pipeline, activity log — lives in a plain-text directory you own',
-        'No account, no cloud sync, no third-party access to your job search',
-        'Covers the full lifecycle: discovery · research · application · outreach · interviews · offers',
-        'Works with Claude Code (real browser via Claude-in-Chrome) or ChatGPT Projects',
+        'Two decoupled webhooks: voice note in (Interakt) → Eka Care AI (Ekascribe) → prescription callback out',
+        'request_id correlates async prescription generation back to the originating WhatsApp chat',
+        'Stack: FastAPI · Eka Care API · Interakt (WhatsApp Business) · httpx',
       ],
-      tags: ['python', 'claude code', 'ai agents'],
-      badge: null,
+      tags: ['python', 'fastapi', 'aws'],
+      badge: '🏆 1st · Ekathon 2025',
       execSteps: [
-        '→ Scaffolding workspace directory...',
-        '→ Generating profile.md and boards.md...',
-        '→ Bootstrapping agent entry point (CLAUDE.md)...',
-        '→ Loading job-search skills...',
-        '→ Ready — open the directory in Claude Code to begin',
+        '→ Listening on WhatsApp webhook...',
+        '→ Doctor voice note received...',
+        '→ Forwarding to Eka Care AI (Ekascribe)...',
+        '→ Waiting for prescription callback...',
+        '→ Formatting and delivering via Interakt...',
       ],
     },
   ],
@@ -542,10 +542,10 @@ cmd('projects', () => {
 });
 
 /* individual project execution commands */
-cmd('poirot run',     () => { execProject(DATA.projects[0]); return null; });
-cmd('echo-health',   () => { execProject(DATA.projects[1]); return null; });
+cmd('careeros init', () => { execProject(DATA.projects[0]); return null; });
+cmd('poirot run',    () => { execProject(DATA.projects[1]); return null; });
 cmd('skim build',    () => { execProject(DATA.projects[2]); return null; });
-cmd('careeros init', () => { execProject(DATA.projects[3]); return null; });
+cmd('echo-health',   () => { execProject(DATA.projects[3]); return null; });
 
 cmd('skills', () => {
   Terminal.setSection('skills');

@@ -623,6 +623,26 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 }
 
 /* ── About section ───────────────────────────────────────────────────── */
+.about-focus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 0;
+  margin-bottom: 24px;
+}
+.focus-tag {
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.focus-sep {
+  font-size: var(--fs-sm);
+  color: var(--dim);
+  margin: 0 10px;
+}
+
 .about-body p {
   font-size: var(--fs-lg);
   font-weight: 300;
