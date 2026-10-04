@@ -22,7 +22,7 @@
   --red:     #FF6B6B;
 
   --font: "IBM Plex Mono", ui-monospace, "Cascadia Code", "Fira Code", Menlo, monospace;
-  --fs-xs:  11px;
+  --fs-xs:  12px;
   --fs-sm:  13px;
   --fs-md:  14px;
   --fs-lg:  15px;
@@ -476,7 +476,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .out-cmd-green { font-size: var(--fs-md); font-weight: 400; color: var(--green); }
 .out-badge { font-size: var(--fs-xs); color: var(--amber); }
 .out-project-desc { font-size: var(--fs-md); font-weight: 300; color: var(--text); max-width: 560px; line-height: 1.7; margin-bottom: 4px; }
-.out-project-tags { font-size: var(--fs-xs); color: var(--muted); letter-spacing: 0.04em; }
+.out-project-tags { font-size: var(--fs-sm); color: var(--muted); letter-spacing: 0.04em; }
 
 /* ls */
 .out-ls {
@@ -552,9 +552,9 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .sec { padding: 80px 0; border-top: 1px solid var(--border); }
 
 .sec-label {
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
   font-weight: 400;
-  color: var(--dim);
+  color: var(--muted);
   letter-spacing: 0.08em;
   display: block;
   margin-bottom: 32px;
@@ -662,22 +662,31 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .proj-link { font-size: var(--fs-xs); color: var(--cyan); margin-left: auto; transition: opacity 0.2s; }
 .proj-link:hover { opacity: 0.7; text-decoration: underline; }
 .proj-desc { font-size: var(--fs-md); font-weight: 300; color: var(--text); max-width: 560px; line-height: 1.75; margin-bottom: 6px; }
-.proj-tags { font-size: var(--fs-xs); color: var(--muted); }
-.proj-detail { list-style: none; padding: 0; margin: 6px 0; display: flex; flex-direction: column; gap: 3px; }
-.proj-detail-line { font-size: var(--fs-xs); color: var(--muted); line-height: 1.5; }
+.proj-tags { font-size: var(--fs-sm); color: var(--muted); }
+.proj-detail { list-style: none; padding: 0; margin: 6px 0; display: flex; flex-direction: column; gap: 4px; }
+.proj-detail-line { font-size: var(--fs-sm); color: var(--muted); line-height: 1.6; }
 .proj-detail-line::before { content: '· '; color: var(--green); }
 
 /* ── Exploring section ───────────────────────────────────────────────── */
-.exploring-grid { display: flex; flex-direction: column; gap: 10px; }
-.exploring-row { display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
-.exploring-key {
-  font-size: var(--fs-xs);
-  color: var(--cyan);
-  min-width: 96px;
-  flex-shrink: 0;
-  letter-spacing: 0.04em;
+.exploring-grid {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 12px 28px;
+  max-width: 680px;
 }
-.exploring-val { font-size: var(--fs-md); font-weight: 300; color: var(--text); }
+.exploring-row { display: contents; }
+.exploring-key {
+  font-size: var(--fs-sm);
+  color: var(--cyan);
+  letter-spacing: 0.04em;
+  padding-top: 2px;
+}
+.exploring-val {
+  font-size: var(--fs-md);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.7;
+}
 .exploring-link { font-size: var(--fs-xs); color: var(--muted); margin-left: 8px; }
 .exploring-link:hover { color: var(--cyan); }
 
@@ -689,9 +698,9 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   gap: 2px;
 }
 .out-detail-line {
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
   color: var(--muted);
-  line-height: 1.5;
+  line-height: 1.6;
   padding-left: 2px;
 }
 .out-detail-line::before {
@@ -700,10 +709,15 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 }
 
 /* ── Skills section ──────────────────────────────────────────────────── */
-.skills-grid { display: flex; flex-direction: column; gap: 10px; }
-.skill-row { display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
-.skill-cat { font-size: var(--fs-xs); color: var(--cyan); min-width: 72px; flex-shrink: 0; letter-spacing: 0.04em; }
-.skill-vals { font-size: var(--fs-md); font-weight: 300; color: var(--text); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px 28px;
+  max-width: 680px;
+}
+.skill-row { display: contents; }
+.skill-cat { font-size: var(--fs-sm); color: var(--cyan); letter-spacing: 0.04em; padding-top: 2px; }
+.skill-vals { font-size: var(--fs-md); font-weight: 300; color: var(--text); line-height: 1.7; }
 
 /* ── Contact section ─────────────────────────────────────────────────── */
 .contact-intro { font-size: var(--fs-lg); font-weight: 300; color: var(--muted); margin-bottom: 20px; max-width: 480px; }
@@ -719,10 +733,15 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 
 .contact-email:hover { color: var(--cyan); }
 
-.contact-links { display: flex; flex-direction: column; gap: 8px; }
+.contact-links {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 10px 28px;
+  max-width: 480px;
+}
 
-.contact-row { display: flex; gap: 20px; align-items: baseline; }
-.contact-key { font-size: var(--fs-xs); color: var(--cyan); min-width: 72px; flex-shrink: 0; }
+.contact-row { display: contents; }
+.contact-key { font-size: var(--fs-sm); color: var(--cyan); padding-top: 2px; }
 .contact-val { font-size: var(--fs-sm); color: var(--muted); transition: color 0.2s; }
 .contact-val:hover { color: var(--cyan); text-decoration: underline; }
 
@@ -732,7 +751,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   padding: 32px 0 40px;
 }
 
-.footer p { font-size: var(--fs-xs); color: var(--dim); }
+.footer p { font-size: var(--fs-sm); color: var(--muted); }
 
 /* ── Mobile command bar ──────────────────────────────────────────────── */
 .mobile-cmds {
