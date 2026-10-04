@@ -147,7 +147,7 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
   letter-spacing: 0.05em;
 }
 
-.boot-sep { color: var(--dim); margin: 8px 0; }
+.boot-sep { color: var(--muted); margin: 8px 0; }
 
 .boot-lines {
   min-height: 220px;
@@ -158,10 +158,10 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .boot-line {
   font-size: var(--fs-sm);
   line-height: 2;
-  color: var(--muted);
+  color: var(--text);
 }
 
-.boot-ok { color: var(--muted); }
+.boot-ok { color: var(--text); }
 .boot-ok-tag { color: var(--green); font-weight: 400; }
 .boot-ready {
   color: var(--cyan);
