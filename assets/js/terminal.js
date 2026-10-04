@@ -293,17 +293,50 @@ cmd('help', () => `<div class="out-section">
 <div class="out-hint">↑/↓ history &nbsp;·&nbsp; TAB autocomplete &nbsp;·&nbsp; Ctrl+L clear</div>
 </div>`);
 
-cmd('whoami', () => `<div class="out-section">
-<div class="out-whoami-name">${DATA.name}</div>
-<div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; Senior Software Engineer</div>
-<div class="out-whoami-bio">
-Building distributed systems, Kubernetes-native platforms, and AI agents.<br>
-5+ years — Go · Python · AWS · GCP · Kubernetes
-</div>
-<div class="out-hint">Type <span class="out-cmd-inline">about</span> for more &nbsp;·&nbsp; <span class="out-cmd-inline">help</span> to explore</div>
-</div>`);
+cmd('whoami', () => {
+  const container = document.createElement('div');
+  container.className = 'out-section';
+  container.innerHTML = `
+    <div class="out-whoami-name">${DATA.name}</div>
+    <div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; Senior Software Engineer</div>
+    <div class="out-whoami-bio">
+      Building distributed systems, Kubernetes-native platforms, and AI agents.<br>
+      5+ years — Go · Python · AWS · GCP · Kubernetes
+    </div>`;
+  Terminal.outputEl.appendChild(container);
+  Terminal.scrollBottom();
 
-cmd('about', () => `<div class="out-section">
+  /* Explore nav appears shortly after whoami content */
+  setTimeout(() => {
+    const firstVisit = !sessionStorage.getItem('kaushal_explored');
+    const nav = document.createElement('div');
+    nav.className = 'explore-nav' + (firstVisit ? ' explore-nav--first' : '');
+    nav.innerHTML = `
+      <div class="explore-header">// explore</div>
+      <div class="explore-grid">
+        <button class="explore-btn" data-cmd="about"><span class="explore-cmd">about</span><span class="explore-sep">·</span><span class="explore-desc">Who I am</span></button>
+        <button class="explore-btn" data-cmd="experience"><span class="explore-cmd">experience</span><span class="explore-sep">·</span><span class="explore-desc">Where I've worked</span></button>
+        <button class="explore-btn" data-cmd="projects"><span class="explore-cmd">projects</span><span class="explore-sep">·</span><span class="explore-desc">Things I've built</span></button>
+        <button class="explore-btn" data-cmd="skills"><span class="explore-cmd">skills</span><span class="explore-sep">·</span><span class="explore-desc">Technologies I use</span></button>
+        <button class="explore-btn" data-cmd="contact"><span class="explore-cmd">contact</span><span class="explore-sep">·</span><span class="explore-desc">Let's talk</span></button>
+        <button class="explore-btn" data-cmd="resume"><span class="explore-cmd">resume</span><span class="explore-sep">·</span><span class="explore-desc">View / download</span></button>
+      </div>
+      <div class="explore-hint-text">Choose a section, or type a command.</div>
+      ${firstVisit ? '<div class="explore-onboard-tip">New here? These buttons navigate the same content as terminal commands.</div>' : ''}`;
+    Terminal.outputEl.appendChild(nav);
+    Terminal.scrollBottom();
+
+    if (firstVisit) {
+      setTimeout(() => nav.classList.add('explore-nav--onboard-done'), 4000);
+    }
+  }, 180);
+
+  return null;
+});
+
+cmd('about', () => {
+  Terminal.setSection('about');
+  return `<div class="out-section">
 <div class="out-label">// about</div>
 <p class="out-p">I'm a backend engineer who enjoys working on systems that need to be fast, reliable, and scalable. Over the past five years, I've built messaging platforms, webhook pipelines, Kubernetes-native platforms, and AI agents — mostly using Go, Python, and a mix of AWS and GCP services.</p>
 <p class="out-p">Lately that's meant building on-prem Kubernetes deployments for hospital-scale workloads, instrumenting distributed tracing across a dozen services, and shipping AI agents that help platform teams resolve incidents faster. I care about writing clean, maintainable code and making the right trade-offs between speed and complexity.</p>
@@ -313,10 +346,12 @@ cmd('about', () => `<div class="out-section">
   <div class="out-row"><span class="out-key">email</span><span class="out-val"><a href="mailto:${DATA.email}" class="out-link">${DATA.email}</a></span></div>
   <div class="out-row"><span class="out-key">education</span><span class="out-val">${DATA.education}</span></div>
 </div>
-</div>`);
+</div>`;
+});
 
 /* experience — progressive bullets */
 cmd('experience', () => {
+  Terminal.setSection('experience');
   const container = document.createElement('div');
   container.className = 'out-section';
   container.innerHTML = `<div class="out-label">// cat /var/log/career.log</div>`;
@@ -366,6 +401,7 @@ cmd('experience', () => {
 
 /* projects — progressive card reveal */
 cmd('projects', () => {
+  Terminal.setSection('projects');
   const container = document.createElement('div');
   container.className = 'out-section';
   container.innerHTML = `<div class="out-label">// ls ./projects</div>`;
@@ -398,6 +434,7 @@ cmd('echo-health', () => { execProject(DATA.projects[1]); return null; });
 cmd('skim build',  () => { execProject(DATA.projects[2]); return null; });
 
 cmd('skills', () => {
+  Terminal.setSection('skills');
   const rows = DATA.skills.map(s =>
     `<div class="out-row"><span class="out-key">${s.cat}</span><span class="out-val">${s.vals}</span></div>`
   ).join('');
@@ -416,7 +453,9 @@ cmd('education', () => `<div class="out-section">
 </div>
 </div>`);
 
-cmd('contact', () => `<div class="out-section">
+cmd('contact', () => {
+  Terminal.setSection('contact');
+  return `<div class="out-section">
 <div class="out-label">// ./contact</div>
 <div class="out-table">
   <div class="out-row"><span class="out-key">email</span><span class="out-val"><a href="mailto:${DATA.email}" class="out-link">${DATA.email}</a></span></div>
@@ -426,7 +465,8 @@ cmd('contact', () => `<div class="out-section">
   <div class="out-row"><span class="out-key">x</span><span class="out-val"><a href="${DATA.twitter}" target="_blank" rel="noopener" class="out-link">→ kaushaltwt</a></span></div>
 </div>
 <div class="out-status-line"><span class="status-dot">●</span> Available for interesting opportunities</div>
-</div>`);
+</div>`;
+});
 
 cmd('resume', () => `<div class="out-section">
 <div class="out-label">// resume</div>
@@ -587,6 +627,7 @@ const Terminal = {
   outputEl: null,
   bodyEl: null,
   pendingInput: '',
+  currentSection: null,
 
   init() {
     this.inputEl = document.getElementById('term-input');
@@ -595,7 +636,26 @@ const Terminal = {
     if (!this.inputEl) return;
 
     this.inputEl.addEventListener('keydown', e => this.onKeyDown(e));
-    this.bodyEl.addEventListener('click', () => this.inputEl.focus());
+
+    /* Click on explore buttons (event delegation — buttons are injected later) */
+    this.outputEl.addEventListener('click', e => {
+      const btn = e.target.closest('.explore-btn');
+      if (btn) {
+        const c = btn.getAttribute('data-cmd');
+        if (c) {
+          sessionStorage.setItem('kaushal_explored', '1');
+          this.execute(c);
+        }
+        return;
+      }
+      this.inputEl.focus();
+    });
+
+    this.bodyEl.addEventListener('click', e => {
+      if (!e.target.closest('.explore-btn') && !e.target.closest('a')) {
+        this.inputEl.focus();
+      }
+    });
 
     document.addEventListener('keydown', e => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
@@ -603,6 +663,24 @@ const Terminal = {
         this.inputEl.focus();
       }
     });
+  },
+
+  setSection(name) {
+    this.currentSection = name;
+    const path = name ? `~/${name}` : '~';
+    const titleEl = document.querySelector('.term-title');
+    const promptEl = document.querySelector('.term-prompt-label');
+    if (titleEl && titleEl.textContent !== `kaushal@portfolio: ${path}`) {
+      titleEl.classList.add('term-title--changing');
+      setTimeout(() => {
+        titleEl.textContent = `kaushal@portfolio: ${path}`;
+        titleEl.classList.remove('term-title--changing');
+      }, 120);
+    }
+    if (promptEl) {
+      promptEl.textContent = `kaushal@portfolio:${path}$ `;
+    }
+    /* Also update printed prompt-lines for consistency */
   },
 
   isTextFocus() {
@@ -680,9 +758,10 @@ const Terminal = {
   },
 
   printPromptLine(cmd) {
+    const path = this.currentSection ? `~/${this.currentSection}` : '~';
     const el = document.createElement('div');
     el.className = 'out-prompt-line';
-    el.innerHTML = `<span class="prompt-str">${DATA.handle}@portfolio:~$</span> <span class="prompt-cmd">${escHtml(cmd)}</span>`;
+    el.innerHTML = `<span class="prompt-str">${DATA.handle}@portfolio:${path}$</span> <span class="prompt-cmd">${escHtml(cmd)}</span>`;
     this.outputEl.appendChild(el);
   },
 
@@ -825,8 +904,32 @@ const Network = {
   },
 };
 
-/* ── Metrics counters ──────────────────────────────────────────────── */
+/* ── Metrics counters + telemetry sparklines ───────────────────────── */
+const SPARK_PATHS = {
+  '500': 'M0,10 L6,3 L12,12 L18,2 L24,8 L30,1 L36,9 L42,4 L48,11 L54,2 L60,7',   /* high-frequency traffic */
+  '12':  'M0,7 L12,7 L18,4 L24,7 L36,6 L42,4 L48,7 L60,7',                        /* steady, distributed */
+  '80':  'M0,12 L12,10 L24,8 L36,5 L48,3 L60,2',                                   /* upward adoption */
+  '5':   'M0,11 L15,10 L30,8 L45,6 L60,4',                                          /* gradual growth */
+  '0':   'M0,7 L20,7 L22,5 L24,7 L60,7',                                            /* flat — zero downtime */
+};
+
+function metricSparkSvg(dataTarget) {
+  const d = SPARK_PATHS[dataTarget] || 'M0,7 L60,7';
+  return `<svg class="metric-spark" viewBox="0 0 60 14" aria-hidden="true"><path d="${d}"/></svg>`;
+}
+
 function initMetrics() {
+  /* Inject sparklines */
+  document.querySelectorAll('.metric').forEach(m => {
+    const numEl = m.querySelector('.metric-num');
+    if (!numEl) return;
+    const t = numEl.getAttribute('data-target');
+    if (!t) return;
+    const svg = document.createElement('div');
+    svg.innerHTML = metricSparkSvg(t);
+    m.appendChild(svg.firstElementChild);
+  });
+
   const els = document.querySelectorAll('.metric-num[data-target]');
   if (!els.length) return;
 
@@ -841,6 +944,10 @@ function initMetrics() {
       const isFloat = raw.includes('.');
       const duration = 1400;
       const start = performance.now();
+
+      /* Trigger sparkline draw animation */
+      const spark = el.closest('.metric')?.querySelector('.metric-spark path');
+      if (spark) spark.classList.add('metric-spark--animating');
 
       /* Reset then count up */
       el.textContent = prefix + (isFloat ? '0.0' : '0') + suffix;

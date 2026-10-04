@@ -796,3 +796,158 @@ a:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 2px; }
 .term-body.term-clear-flash {
   animation: clear-flash 0.15s linear;
 }
+
+/* ── Prompt path transition ──────────────────────────────────────────── */
+.term-title {
+  transition: opacity 0.12s ease;
+}
+.term-title--changing {
+  opacity: 0;
+}
+
+/* ── Explore navigation ──────────────────────────────────────────────── */
+.explore-nav {
+  margin: 6px 0 10px;
+  padding: 12px 16px 10px;
+  border-left: 2px solid var(--border);
+  background: rgba(11,14,18,0.6);
+  animation: exec-fade-in 0.3s ease forwards;
+}
+
+.explore-header {
+  font-size: var(--fs-xs);
+  color: var(--dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 24px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 640px) {
+  .explore-grid { grid-template-columns: 1fr; }
+}
+
+.explore-btn {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: var(--fs-sm);
+  padding: 5px 6px;
+  text-align: left;
+  width: 100%;
+  border-radius: 2px;
+  transition: background 0.12s;
+}
+
+.explore-btn:hover, .explore-btn:focus-visible {
+  background: rgba(93,228,255,0.06);
+  outline: none;
+}
+
+.explore-btn:focus-visible {
+  outline: 1px dashed var(--cyan);
+}
+
+.explore-cmd {
+  color: var(--cyan);
+  font-weight: 400;
+  min-width: 88px;
+  flex-shrink: 0;
+}
+
+.explore-sep {
+  color: var(--dim);
+  flex-shrink: 0;
+}
+
+.explore-desc {
+  color: var(--muted);
+  font-size: var(--fs-xs);
+}
+
+.explore-hint-text {
+  font-size: var(--fs-xs);
+  color: var(--dim);
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(31,41,51,0.5);
+}
+
+/* First-visit onboarding highlight */
+.explore-nav--first .explore-btn {
+  animation: explore-pulse 0.6s ease-out 0.3s both;
+}
+
+.explore-nav--first .explore-btn:nth-child(2) { animation-delay: 0.45s; }
+.explore-nav--first .explore-btn:nth-child(3) { animation-delay: 0.6s; }
+.explore-nav--first .explore-btn:nth-child(4) { animation-delay: 0.75s; }
+.explore-nav--first .explore-btn:nth-child(5) { animation-delay: 0.9s; }
+.explore-nav--first .explore-btn:nth-child(6) { animation-delay: 1.05s; }
+
+@keyframes explore-pulse {
+  0%   { background: rgba(93,228,255,0.0); }
+  40%  { background: rgba(93,228,255,0.08); }
+  100% { background: rgba(93,228,255,0.0); }
+}
+
+.explore-onboard-tip {
+  font-size: var(--fs-xs);
+  color: var(--amber);
+  margin-top: 8px;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.explore-nav--onboard-done .explore-onboard-tip {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-nav--first .explore-btn { animation: none; }
+  .explore-nav { animation: none; }
+}
+
+/* ── Telemetry sparklines ────────────────────────────────────────────── */
+.metric {
+  position: relative;
+}
+
+.metric-spark {
+  display: block;
+  width: 60px;
+  height: 14px;
+  margin: 4px auto 0;
+  overflow: visible;
+}
+
+.metric-spark path {
+  stroke: var(--cyan);
+  fill: none;
+  stroke-width: 1.2;
+  opacity: 0.25;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+}
+
+.metric-spark--animating {
+  animation: spark-draw 1.3s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes spark-draw {
+  from { stroke-dashoffset: 200; opacity: 0.15; }
+  60%  { stroke-dashoffset: 0;   opacity: 0.45; }
+  to   { stroke-dashoffset: 0;   opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metric-spark { display: none; }
+}
