@@ -18,7 +18,7 @@ const DATA = {
     {
       company: 'RapidAI',
       title: 'Senior Software Engineer, Platform',
-      period: 'Jun 2023 – Present',
+      period: 'Oct 2025 – Present',
       bullets: [
         'Built the on-prem deployment system for hospital networks: automated Kubernetes cluster setup, configuration management, and continuous delivery using Helm and ArgoCD',
         'Set up distributed tracing across 12+ services using Tempo and Grafana, giving the team visibility into where requests slow down or fail across the system',
@@ -28,13 +28,22 @@ const DATA = {
     },
     {
       company: 'Eka Care',
-      title: 'Software Engineer',
-      period: 'Jul 2021 – Jun 2023',
+      title: 'Software Engineer 2',
+      period: 'Feb 2023 – Sep 2025',
       bullets: [
         'Designed a high-throughput notification platform delivering 1M+ messages per day at 99.9% uptime',
         'Built a secure webhook system for encrypted real-time delivery to 50+ clients at 100+ requests per second',
         'Built backend services in Go for core prescription and appointment workflows',
         'Led and mentored 3 interns to build an internal analytics platform tracking customer usage across services and APIs',
+      ],
+    },
+    {
+      company: 'IBM',
+      title: 'Software Engineer, MQ',
+      period: 'Jun 2021 – Jan 2023',
+      bullets: [
+        'Contributed to the WebSphere MQ High Availability architecture, reducing message latency by 20%',
+        'Built Java programs processing 1K+ messages per second across applications and cloud platforms',
       ],
     },
   ],
