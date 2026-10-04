@@ -5,10 +5,10 @@
 const DATA = {
   name: 'Kaushal Sharma',
   handle: 'kaushal',
-  role: 'Senior Software Engineer, Platform',
+  role: 'Senior Software Engineer · Distributed Systems & Backend',
   email: 'kaushalworkss@gmail.com',
   location: 'Bangalore, India',
-  education: 'IIIT Jabalpur — B.Tech CSE (2017–2021)',
+  education: 'IIIT Jabalpur · B.Tech CSE · 2017–2021',
   github: 'https://github.com/init-kaushal',
   linkedin: 'https://www.linkedin.com/in/kaushal-kishor-sharma',
   leetcode: 'https://leetcode.com/u/sharmakaushal',
@@ -52,39 +52,67 @@ const DATA = {
       cmd: 'poirot run',
       name: 'poirot',
       url: 'https://github.com/init-kaushal/poirot',
-      desc: 'Point-in-time reliability, cost and change-risk assessment for Kubernetes clusters. Give it a kubeconfig and a poirot.yaml — read report.md.',
+      landing: 'https://init-kaushal.github.io/poirot/',
+      desc: 'Point-in-time reliability, cost, and change-risk report for a Kubernetes cluster. Give it a kubeconfig and a poirot.yaml; run poirot run; read report.md.',
+      detail: [
+        'Runs deterministic analyzers: reliability · SLO · cost (OpenCost / estimated) · change-risk',
+        'LLM layer is additive: enriches warning+ findings with probable cause and an executive summary',
+        'Works without an API key — the deterministic report is always complete',
+        'Output: report.json + report.md · exits 0 (clean) / 1 (warnings) / 2 (critical)',
+      ],
       tags: ['go', 'kubernetes', 'prometheus', 'llm'],
       badge: null,
       execSteps: [
-        '→ Connecting to cluster...',
-        '→ Loading kubeconfig from poirot.yaml...',
-        '→ Analyzing 12 services...',
+        '→ Connecting to cluster via kubeconfig...',
+        '→ Running reliability analyzers...',
+        '→ Running SLO + cost analyzers (OpenCost)...',
+        '→ Running change-risk analysis...',
+        '→ LLM enrichment: correlating findings...',
+        '→ Writing report.md...',
       ],
     },
     {
       cmd: 'echo-health',
       name: 'echo-health',
       url: 'https://github.com/init-kaushal/echo-health',
-      desc: 'Doctors send a voice note on WhatsApp; bot delivers the structured prescription back. Built at Ekathon 2025.',
+      landing: null,
+      desc: 'A doctor sends a voice note on WhatsApp; a bot delivers the structured prescription back. Built at Ekathon 2025.',
+      detail: [
+        'Two decoupled webhooks: voice note in (Interakt) → Eka Care AI (Ekascribe) → prescription callback out',
+        'request_id correlates async prescription generation back to the originating WhatsApp chat',
+        'Stack: FastAPI · Eka Care API · Interakt (WhatsApp Business) · httpx',
+      ],
       tags: ['python', 'fastapi', 'aws'],
       badge: '🏆 1st · Ekathon 2025',
       execSteps: [
-        '→ Initializing WhatsApp listener...',
-        '→ Processing voice note...',
-        '→ Structuring prescription output...',
+        '→ Listening on WhatsApp webhook...',
+        '→ Doctor voice note received...',
+        '→ Forwarding to Eka Care AI (Ekascribe)...',
+        '→ Waiting for prescription callback...',
+        '→ Formatting and delivering via Interakt...',
       ],
     },
     {
       cmd: 'skim build',
       name: 'skim',
       url: 'https://github.com/init-kaushal/skim',
-      desc: 'Claude Code plugin — intercepts oversized tool calls and substitutes a Haiku digest, keeping your context window clean.',
+      landing: 'https://init-kaushal.github.io/skim/',
+      desc: 'Claude Code plugin that intercepts oversized Read, Grep, and Bash calls before they run and substitutes a compact Haiku digest, keeping the main session context clean.',
+      detail: [
+        'Hooks Claude Code\'s PreToolUse event: denies the call, puts a digest in permissionDecisionReason',
+        'Routes expensive Read/Grep/Bash calls to a cheap Haiku worker instead of the session model',
+        'Model-agnostic on the driving side — works with Opus, Sonnet, Fable, or any future model',
+        'Fails open: if the hook exits 0, the original tool runs completely normally',
+      ],
       tags: ['go', 'claude api', 'mcp'],
       badge: null,
       execSteps: [
         '→ Loading plugin manifest...',
-        '→ Compiling hook handlers...',
-        '→ Linking MCP interface...',
+        '→ Compiling Read interception handler...',
+        '→ Compiling Grep interception handler...',
+        '→ Compiling Bash interception handler...',
+        '→ Configuring Haiku worker (claude-haiku-4-5)...',
+        '→ Linking PreToolUse hooks...',
       ],
     },
   ],
@@ -94,6 +122,13 @@ const DATA = {
     { cat: 'backend', vals: 'PostgreSQL · Redis · Kafka · gRPC · REST' },
     { cat: 'ai', vals: 'Claude API · MCP · AI Agents · LLMs' },
   ],
+  /* Update these to reflect what you're currently working on */
+  exploring: {
+    building: '[UPDATE: what are you actively building right now?]',
+    investigating: '[UPDATE: what technical question are you working through?]',
+    learning: '[UPDATE: what tool or approach are you evaluating?]',
+    next: '[UPDATE: what experiment are you planning next?]',
+  },
 };
 
 /* ── Utilities ─────────────────────────────────────────────────────── */
@@ -297,6 +332,8 @@ cmd('help', () => `<div class="out-section">
   <div class="out-row"><span class="out-key">ls</span><span class="out-val">List directory</span></div>
   <div class="out-row"><span class="out-key">pwd</span><span class="out-val">Print working directory</span></div>
   <div class="out-row"><span class="out-key">date</span><span class="out-val">Current date and time</span></div>
+  <div class="out-row"><span class="out-key">exploring</span><span class="out-val">What I'm working on now</span></div>
+  <div class="out-row"><span class="out-key">analytics</span><span class="out-val">Analytics setup and status</span></div>
   <div class="out-row"><span class="out-key">history</span><span class="out-val">Command history</span></div>
   <div class="out-row"><span class="out-key">clear</span><span class="out-val">Clear terminal (Ctrl+L)</span></div>
 </div>
@@ -310,7 +347,7 @@ cmd('whoami', () => {
     <div class="out-whoami-name">${DATA.name}</div>
     <div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; RapidAI</div>
     <div class="out-whoami-bio">
-      Building distributed systems, Kubernetes-native platforms, and AI agents.<br>
+      Building reliable, scalable backend systems and the infrastructure behind them.<br>
       5+ yrs. Go · Python · Kubernetes · AWS · GCP
     </div>`;
   Terminal.outputEl.appendChild(container);
@@ -348,8 +385,8 @@ cmd('about', () => {
   Terminal.setSection('about');
   return `<div class="out-section">
 <div class="out-label">// about</div>
-<p class="out-p">Five years building the backend systems and infrastructure that sit underneath product features: distributed services, event pipelines, deployment tooling, and reliability tooling. Go is my default language, Python when it fits, Kubernetes in most places I've worked.</p>
-<p class="out-p">At RapidAI I work across platform and backend: automated Kubernetes deployments for hospital networks, a tracing setup that gives the team visibility across 12+ services, and an AI agent that cut incident resolution time by 4x. At Eka Care before that, I built the backend services for prescriptions and appointments, split a monolith into independent microservices, and built the WhatsApp notification layer.</p>
+<p class="out-p">Five years building distributed backend systems and the infrastructure that keeps them running: event pipelines, Kubernetes-native deployment tooling, observability setups, and reliability tooling. Go is my primary language, Python when it fits, Kubernetes in most places I've worked.</p>
+<p class="out-p">At RapidAI I work on distributed systems and platform: automated Kubernetes deployments for hospital networks, distributed tracing across 12+ services, and an AI reliability agent that cut incident resolution from 2+ hours to under 30 minutes. At Eka Care before that, I built the backend for prescriptions and appointments, a high-throughput notification platform handling 1M+ messages a day, and a webhook system serving 50+ clients.</p>
 <p class="out-p">Outside work: backpacking, reading, badminton.</p>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
@@ -457,13 +494,21 @@ cmd('projects', () => {
     setTimeout(() => {
       const card = document.createElement('div');
       card.className = 'out-project exec-reveal';
+      const detailHtml = (p.detail || []).map(d =>
+        `<div class="out-detail-line">${escHtml(d)}</div>`
+      ).join('');
+      const landingLink = p.landing
+        ? `<a href="${p.landing}" target="_blank" rel="noopener" class="out-link out-link-arrow">↗ site</a>`
+        : '';
       card.innerHTML = `
         <div class="out-project-top">
           <span class="out-cmd-green">$ ${escHtml(p.cmd)}</span>
           ${p.badge ? `<span class="out-badge">${p.badge}</span>` : ''}
+          ${landingLink}
           <a href="${p.url}" target="_blank" rel="noopener" class="out-link out-link-arrow">↗ github</a>
         </div>
         <div class="out-project-desc">${p.desc}</div>
+        ${detailHtml ? `<div class="out-project-detail">${detailHtml}</div>` : ''}
         <div class="out-project-tags">${p.tags.join(' &nbsp; ')}</div>`;
       container.appendChild(card);
       Terminal.scrollBottom();
@@ -547,7 +592,7 @@ cmd('neofetch', () => {
     `<div class="out-nf-name">${DATA.handle}@portfolio</div>`,
     `<div class="out-nf-sep">──────────────────────</div>`,
     `<div class="out-row"><span class="out-key">OS</span><span class="out-val">KaushalOS 2.6.1</span></div>`,
-    `<div class="out-row"><span class="out-key">Role</span><span class="out-val">Senior SWE, Platform · RapidAI</span></div>`,
+    `<div class="out-row"><span class="out-key">Role</span><span class="out-val">Senior SWE · Distributed Systems &amp; Backend · RapidAI</span></div>`,
     `<div class="out-row"><span class="out-key">Location</span><span class="out-val">${DATA.location}</span></div>`,
     `<div class="out-row"><span class="out-key">Runtime</span><span class="out-val">Go · Python</span></div>`,
     `<div class="out-row"><span class="out-key">Cloud</span><span class="out-val">AWS · GCP</span></div>`,
@@ -576,8 +621,8 @@ cmd('status', () => `<div class="out-section">
 <div class="out-status-line"><span class="status-dot">●</span> Available for interesting opportunities</div>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
-  <div class="out-row"><span class="out-key">currently</span><span class="out-val">@RapidAI — Senior Software Engineer, Platform</span></div>
-  <div class="out-row"><span class="out-key">open to</span><span class="out-val">Distributed systems · infra · platform · AI engineering</span></div>
+  <div class="out-row"><span class="out-key">currently</span><span class="out-val">@RapidAI — Senior Software Engineer · Distributed Systems &amp; Backend</span></div>
+  <div class="out-row"><span class="out-key">open to</span><span class="out-val">Distributed systems · backend · platform · AI engineering</span></div>
 </div>
 </div>`);
 
@@ -589,6 +634,7 @@ cmd('ls', () => `<div class="out-section">
   <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; skills/</div>
   <div><span class="ls-dir">drwxr-xr-x</span>&nbsp; contact/</div>
   <div><span class="ls-file">-rw-r--r--</span>&nbsp; resume.pdf</div>
+  <div><span class="ls-file">-rw-r--r--</span>&nbsp; exploring.json</div>
   <div><span class="ls-exec">-rwxr-xr-x</span>&nbsp; neofetch*</div>
 </div>
 </div>`);
@@ -674,6 +720,59 @@ cmd('fortune', () => {
   ];
   const f = fortunes[Math.floor(Math.random() * fortunes.length)];
   return `<div class="out-section"><div class="out-p out-amber">${f}</div></div>`;
+});
+
+/* exploring / now */
+cmd(['exploring', 'now'], () => {
+  const e = DATA.exploring;
+  const items = [
+    { key: 'building',      val: e.building },
+    { key: 'investigating', val: e.investigating },
+    { key: 'learning',      val: e.learning },
+    { key: 'next',          val: e.next },
+  ];
+  const rows = items.map(i =>
+    `<div class="out-row"><span class="out-key">${i.key}</span><span class="out-val">${escHtml(i.val)}</span></div>`
+  ).join('');
+  return `<div class="out-section">
+<div class="out-label">// cat exploring.json</div>
+<div class="out-table">${rows}</div>
+</div>`;
+});
+
+/* analytics */
+cmd('analytics', () => {
+  const configured = !!document.querySelector('[data-cf-beacon]');
+  const statusCls = configured ? 'out-green' : 'out-amber';
+  const statusText = configured ? '● tracking active' : '○ not configured — see setup steps below';
+  return `<div class="out-section">
+<div class="out-label">// analytics status</div>
+<div class="out-table">
+  <div class="out-row"><span class="out-key">provider</span><span class="out-val">Cloudflare Web Analytics</span></div>
+  <div class="out-row"><span class="out-key">status</span><span class="out-val ${statusCls}">${statusText}</span></div>
+  <div class="out-row"><span class="out-key">tracks</span><span class="out-val">page views · project link clicks · resume clicks</span></div>
+</div>
+${!configured ? `<div class="out-hint">Setup: 1) sign up at dash.cloudflare.com/web-analytics  2) add your token to the script tag in index.html  3) uncomment the &lt;script&gt; block near &lt;/body&gt;</div>` : ''}
+</div>`;
+});
+
+cmd('analytics status', () => Terminal.execute('analytics'));
+
+cmd('analytics open', () => {
+  window.open('https://dash.cloudflare.com/web-analytics', '_blank', 'noopener');
+  return `<div class="out-section"><div class="out-p out-muted">Opening Cloudflare Web Analytics...</div></div>`;
+});
+
+cmd('analytics report', () => {
+  const configured = !!document.querySelector('[data-cf-beacon]');
+  if (!configured) {
+    return `<div class="out-section">
+<div class="out-p out-amber">analytics not configured — no data available yet.</div>
+<div class="out-hint">Run <span class="out-cmd-inline">analytics</span> for setup steps.</div>
+</div>`;
+  }
+  window.open('https://dash.cloudflare.com/web-analytics', '_blank', 'noopener');
+  return `<div class="out-section"><div class="out-p out-muted">Opening analytics dashboard — live data is there.</div></div>`;
 });
 
 cmd(['rm -rf /', 'rm -rf /*'], () => `<div class="out-section">
