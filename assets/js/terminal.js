@@ -5,7 +5,7 @@
 const DATA = {
   name: 'Kaushal Sharma',
   handle: 'kaushal',
-  role: 'Backend Engineer',
+  role: 'Senior Software Engineer, Platform',
   email: 'kaushalworkss@gmail.com',
   location: 'Bangalore, India',
   education: 'IIIT Jabalpur — B.Tech CSE (2017–2021)',
@@ -298,10 +298,10 @@ cmd('whoami', () => {
   container.className = 'out-section';
   container.innerHTML = `
     <div class="out-whoami-name">${DATA.name}</div>
-    <div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; Senior Software Engineer</div>
+    <div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; RapidAI</div>
     <div class="out-whoami-bio">
-      Building distributed systems, Kubernetes-native platforms, and AI agents.<br>
-      5+ years — Go · Python · AWS · GCP · Kubernetes
+      Building systems that stay up, agents that think, and tools that get out of the way.<br>
+      5+ yrs — Go · Python · Kubernetes · AWS · GCP
     </div>`;
   Terminal.outputEl.appendChild(container);
   Terminal.scrollBottom();
@@ -338,9 +338,9 @@ cmd('about', () => {
   Terminal.setSection('about');
   return `<div class="out-section">
 <div class="out-label">// about</div>
-<p class="out-p">I'm a backend engineer who enjoys working on systems that need to be fast, reliable, and scalable. Over the past five years, I've built messaging platforms, webhook pipelines, Kubernetes-native platforms, and AI agents — mostly using Go, Python, and a mix of AWS and GCP services.</p>
-<p class="out-p">Lately that's meant building on-prem Kubernetes deployments for hospital-scale workloads, instrumenting distributed tracing across a dozen services, and shipping AI agents that help platform teams resolve incidents faster. I care about writing clean, maintainable code and making the right trade-offs between speed and complexity.</p>
-<p class="out-p">Outside of work, you'll find me backpacking, reading, or on a badminton court.</p>
+<p class="out-p">Five years of work mostly spent in the plumbing layer: the pipelines, service meshes, and platforms that sit underneath product features. Go is my default, Python when it fits, Kubernetes basically everywhere at this point.</p>
+<p class="out-p">At RapidAI I work on platform reliability — on-prem Kubernetes for hospital networks, distributed tracing across 12+ services, and an AI agent that cut incident resolution time by 4x. At Eka Care before that, I built the Go microservices handling prescriptions and appointments, moved the monolith to Istio, and built the WhatsApp notification layer.</p>
+<p class="out-p">Outside work: backpacking, reading, badminton.</p>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
   <div class="out-row"><span class="out-key">email</span><span class="out-val"><a href="mailto:${DATA.email}" class="out-link">${DATA.email}</a></span></div>
@@ -349,16 +349,32 @@ cmd('about', () => {
 </div>`;
 });
 
-/* experience — progressive bullets */
+/* experience — cd-style preamble + progressive bullets */
 cmd('experience', () => {
   Terminal.setSection('experience');
   const container = document.createElement('div');
   container.className = 'out-section';
-  container.innerHTML = `<div class="out-label">// cat /var/log/career.log</div>`;
   Terminal.outputEl.appendChild(container);
   Terminal.scrollBottom();
 
-  let baseDelay = 120;
+  /* Log-style preamble before data renders */
+  const preamble = [
+    { t: 0,   cls: 'out-label',  text: '// cat /var/log/career.log' },
+    { t: 60,  cls: 'exec-step',  text: '→ reading career.log...' },
+    { t: 160, cls: 'exec-step',  text: `→ ${DATA.experience.length} records found` },
+    { t: 260, cls: 'exec-step',  text: '→ rendering...' },
+  ];
+  preamble.forEach(({ t, cls, text }) => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = cls;
+      el.textContent = text;
+      container.appendChild(el);
+      Terminal.scrollBottom();
+    }, t);
+  });
+
+  let baseDelay = 380;
 
   DATA.experience.forEach((exp, ri) => {
     const roleDelay = baseDelay + (ri === 0 ? 0 : 300);
@@ -399,15 +415,34 @@ cmd('experience', () => {
   return null;
 });
 
-/* projects — progressive card reveal */
+/* projects — directory listing then card reveal */
 cmd('projects', () => {
   Terminal.setSection('projects');
   const container = document.createElement('div');
   container.className = 'out-section';
-  container.innerHTML = `<div class="out-label">// ls ./projects</div>`;
   Terminal.outputEl.appendChild(container);
   Terminal.scrollBottom();
 
+  /* Step 1: directory listing */
+  const labelEl = document.createElement('div');
+  labelEl.className = 'out-label';
+  labelEl.textContent = '// ls -la ./projects';
+  container.appendChild(labelEl);
+
+  const dirListing = document.createElement('div');
+  dirListing.className = 'out-ls';
+  container.appendChild(dirListing);
+
+  DATA.projects.forEach((p, i) => {
+    setTimeout(() => {
+      const row = document.createElement('div');
+      row.innerHTML = `<span class="ls-dir">drwxr-xr-x</span>&nbsp; ${p.name}/`;
+      dirListing.appendChild(row);
+      Terminal.scrollBottom();
+    }, 80 + i * 100);
+  });
+
+  /* Step 2: full cards appear after listing */
   DATA.projects.forEach((p, i) => {
     setTimeout(() => {
       const card = document.createElement('div');
@@ -422,7 +457,7 @@ cmd('projects', () => {
         <div class="out-project-tags">${p.tags.join(' &nbsp; ')}</div>`;
       container.appendChild(card);
       Terminal.scrollBottom();
-    }, 120 + i * 280);
+    }, 500 + i * 260);
   });
 
   return null;
@@ -502,7 +537,7 @@ cmd('neofetch', () => {
     `<div class="out-nf-name">${DATA.handle}@portfolio</div>`,
     `<div class="out-nf-sep">──────────────────────</div>`,
     `<div class="out-row"><span class="out-key">OS</span><span class="out-val">KaushalOS 2.6.1</span></div>`,
-    `<div class="out-row"><span class="out-key">Role</span><span class="out-val">Backend Engineer</span></div>`,
+    `<div class="out-row"><span class="out-key">Role</span><span class="out-val">Senior SWE, Platform · RapidAI</span></div>`,
     `<div class="out-row"><span class="out-key">Location</span><span class="out-val">${DATA.location}</span></div>`,
     `<div class="out-row"><span class="out-key">Runtime</span><span class="out-val">Go · Python</span></div>`,
     `<div class="out-row"><span class="out-key">Cloud</span><span class="out-val">AWS · GCP</span></div>`,
