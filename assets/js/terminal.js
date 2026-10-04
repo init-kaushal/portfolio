@@ -31,9 +31,10 @@ const DATA = {
       title: 'Software Engineer',
       period: 'Jul 2021 – Jun 2023',
       bullets: [
-        'Built the backend services in Go that handle prescriptions and appointments, the core patient-doctor workflows at Eka Care',
-        'Broke a large monolith into smaller independent services and migrated them to a service mesh, with no downtime for users during the transition',
-        'Built the WhatsApp integration that sends patients their appointment confirmations and prescriptions at scale',
+        'Designed a high-throughput notification platform delivering 1M+ messages per day at 99.9% uptime',
+        'Built a secure webhook system for encrypted real-time delivery to 50+ clients at 100+ requests per second',
+        'Built backend services in Go for core prescription and appointment workflows',
+        'Led and mentored 3 interns to build an internal analytics platform tracking customer usage across services and APIs',
       ],
     },
   ],
