@@ -176,8 +176,8 @@
         <div class="section-wrap">
           <span class="sec-label reveal">// about</span>
           <div class="about-body">
-            <p class="reveal">Five years of work mostly spent in the plumbing layer: the pipelines, service meshes, and platforms that sit underneath product features. Go is my default, Python when it fits, Kubernetes basically everywhere at this point.</p>
-            <p class="reveal">At RapidAI I work on platform reliability — on-prem Kubernetes for hospital networks, distributed tracing across 12+ services, and an AI agent that cut incident resolution time by 4x. At Eka Care before that, I built the Go microservices handling prescriptions and appointments, moved the monolith to Istio, and built the WhatsApp notification layer.</p>
+            <p class="reveal">Five years building the backend systems and infrastructure that sit underneath product features: distributed services, event pipelines, deployment tooling, and reliability tooling. Go is my default language, Python when it fits, Kubernetes in most places I've worked.</p>
+            <p class="reveal">At RapidAI I work across platform and backend: automated Kubernetes deployments for hospital networks, a tracing setup that gives the team visibility across 12+ services, and an AI agent that cut incident resolution time by 4x. At Eka Care before that, I built the backend services for prescriptions and appointments, split a monolith into independent microservices, and built the WhatsApp notification layer.</p>
             <p class="reveal">Outside work: backpacking, reading, badminton.</p>
           </div>
           <div class="detail-grid reveal">
@@ -201,10 +201,10 @@
               </div>
               <p class="exp-title">Senior Software Engineer, Platform</p>
               <ul class="exp-bullets">
-                <li>Built on-prem Kubernetes deployment pipeline for hospital-scale workloads — multi-tenant cluster management with Helm and ArgoCD</li>
-                <li>Instrumented distributed tracing across 12+ services using Tempo and Grafana; gave the team line-of-sight into latency hotspots and failure paths across service boundaries</li>
-                <li>Shipped poirot AI agent for reliability and change-risk assessments — cut escalation resolution time from 2h+ to under 30 minutes, 80%+ team adoption</li>
-                <li>Built webhook ingestion pipeline handling 500k+ events/day — backend service handling high-throughput event processing at scale</li>
+                <li>Built the on-prem deployment system for hospital networks: automated Kubernetes cluster setup, configuration management, and continuous delivery using Helm and ArgoCD</li>
+                <li>Set up distributed tracing across 12+ services using Tempo and Grafana, giving the team visibility into where requests slow down or fail across the system</li>
+                <li>Shipped poirot, an AI agent that does real-time reliability and risk checks on Kubernetes clusters. Cut incident resolution from 2h+ to under 30 minutes; 80%+ team adoption</li>
+                <li>Built the backend pipeline that processes 500k+ webhook events per day reliably at scale</li>
               </ul>
             </div>
 
@@ -215,9 +215,9 @@
               </div>
               <p class="exp-title">Software Engineer</p>
               <ul class="exp-bullets">
-                <li>Built core prescription and appointment microservices in Go — transactional backend services powering Eka Care's patient-doctor workflows</li>
-                <li>Migrated monolith services to Istio service mesh with zero downtime — decomposed tightly coupled services into independently deployable microservices</li>
-                <li>Led the WhatsApp integration layer that powers patient appointment confirmations and prescription delivery at scale</li>
+                <li>Built the backend services in Go that handle prescriptions and appointments, the core patient-doctor workflows at Eka Care</li>
+                <li>Broke a large monolith into smaller independent services and migrated them to a service mesh, with no downtime for users during the transition</li>
+                <li>Built the WhatsApp integration that sends patients their appointment confirmations and prescriptions at scale</li>
               </ul>
             </div>
 

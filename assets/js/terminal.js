@@ -20,10 +20,10 @@ const DATA = {
       title: 'Senior Software Engineer, Platform',
       period: 'Jun 2023 – Present',
       bullets: [
-        'Built on-prem Kubernetes deployment pipeline for hospital-scale workloads — multi-tenant cluster management with Helm charts and ArgoCD for declarative GitOps deploys',
-        'Instrumented distributed tracing across 12+ services using Tempo and Grafana; gave the team line-of-sight into latency hotspots and failure paths across service boundaries',
-        'Shipped poirot AI agent for point-in-time reliability and change-risk assessments — cut escalation resolution time from 2h+ to under 30 minutes, 80%+ team adoption',
-        'Designed and built webhook ingestion pipeline handling 500k+ events/day — backend service handling high-throughput event processing at scale',
+        'Built the on-prem deployment system for hospital networks: automated Kubernetes cluster setup, configuration management, and continuous delivery using Helm and ArgoCD',
+        'Set up distributed tracing across 12+ services using Tempo and Grafana, giving the team visibility into where requests slow down or fail across the system',
+        'Shipped poirot, an AI agent that does real-time reliability and risk checks on Kubernetes clusters. Cut incident resolution from 2h+ to under 30 minutes; 80%+ team adoption',
+        'Built the backend pipeline that processes 500k+ webhook events per day reliably at scale',
       ],
     },
     {
@@ -31,9 +31,9 @@ const DATA = {
       title: 'Software Engineer',
       period: 'Jul 2021 – Jun 2023',
       bullets: [
-        'Built core prescription and appointment microservices in Go — transactional backend services powering Eka Care\'s patient-doctor workflows',
-        'Migrated monolith services to Istio service mesh with zero downtime — decomposed tightly coupled services into independently deployable microservices',
-        'Led the WhatsApp integration layer that powers patient appointment confirmations and prescription delivery at scale',
+        'Built the backend services in Go that handle prescriptions and appointments, the core patient-doctor workflows at Eka Care',
+        'Broke a large monolith into smaller independent services and migrated them to a service mesh, with no downtime for users during the transition',
+        'Built the WhatsApp integration that sends patients their appointment confirmations and prescriptions at scale',
       ],
     },
   ],
@@ -301,7 +301,7 @@ cmd('whoami', () => {
     <div class="out-whoami-role">${DATA.role} &nbsp;·&nbsp; RapidAI</div>
     <div class="out-whoami-bio">
       Building distributed systems, Kubernetes-native platforms, and AI agents.<br>
-      5+ yrs — Go · Python · Kubernetes · AWS · GCP
+      5+ yrs. Go · Python · Kubernetes · AWS · GCP
     </div>`;
   Terminal.outputEl.appendChild(container);
   Terminal.scrollBottom();
@@ -338,8 +338,8 @@ cmd('about', () => {
   Terminal.setSection('about');
   return `<div class="out-section">
 <div class="out-label">// about</div>
-<p class="out-p">Five years of work mostly spent in the plumbing layer: the pipelines, service meshes, and platforms that sit underneath product features. Go is my default, Python when it fits, Kubernetes basically everywhere at this point.</p>
-<p class="out-p">At RapidAI I work on platform reliability — on-prem Kubernetes for hospital networks, distributed tracing across 12+ services, and an AI agent that cut incident resolution time by 4x. At Eka Care before that, I built the Go microservices handling prescriptions and appointments, moved the monolith to Istio, and built the WhatsApp notification layer.</p>
+<p class="out-p">Five years building the backend systems and infrastructure that sit underneath product features: distributed services, event pipelines, deployment tooling, and reliability tooling. Go is my default language, Python when it fits, Kubernetes in most places I've worked.</p>
+<p class="out-p">At RapidAI I work across platform and backend: automated Kubernetes deployments for hospital networks, a tracing setup that gives the team visibility across 12+ services, and an AI agent that cut incident resolution time by 4x. At Eka Care before that, I built the backend services for prescriptions and appointments, split a monolith into independent microservices, and built the WhatsApp notification layer.</p>
 <p class="out-p">Outside work: backpacking, reading, badminton.</p>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
@@ -583,7 +583,24 @@ cmd('ls', () => `<div class="out-section">
 </div>
 </div>`);
 
-cmd('pwd', () => `<div class="out-section"><div class="out-p">/home/kaushal/portfolio</div></div>`);
+cmd('pwd', () => {
+  const section = Terminal.currentSection;
+  const path = section ? `/home/kaushal/portfolio/${section}` : '/home/kaushal/portfolio';
+  return `<div class="out-section"><div class="out-p">${path}</div></div>`;
+});
+
+/* cd — navigate sections or return home */
+const CD_SECTIONS = ['about', 'experience', 'projects', 'skills', 'contact'];
+cmd(['cd', 'cd ~', 'cd /', 'cd ~/', 'cd ..'], () => {
+  Terminal.setSection(null);
+  return `<div class="out-section"><div class="out-p">/home/kaushal/portfolio</div></div>`;
+});
+CD_SECTIONS.forEach(s => {
+  cmd([`cd ${s}`, `cd ./${s}`, `cd ${s}/`], () => {
+    Terminal.execute(s);
+    return null;
+  });
+});
 
 cmd('date', () => {
   const now = new Date();
