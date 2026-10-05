@@ -20,10 +20,9 @@ const DATA = {
       title: 'Software Engineer, Platform',
       period: 'Oct 2025 – Present',
       bullets: [
-        'Built the on-prem deployment system for hospital networks: automated Kubernetes cluster setup, configuration management, and continuous delivery using Helm and ArgoCD',
-        'Set up distributed tracing across 12+ services using Tempo and Grafana, giving the team visibility into where requests slow down or fail across the system',
-        'Shipped poirot, an AI agent that does real-time reliability and risk checks on Kubernetes clusters. Cut incident resolution from 2h+ to under 30 minutes; 80%+ team adoption',
-        'Built the backend pipeline that processes 500k+ webhook events per day reliably at scale',
+        'Built Rapid SCU — a Kubernetes-native DICOM load-testing service with multi-pod workload distribution and status aggregation APIs. Validates platform throughput at 2K–3K scans/day across S3, Box, and local storage',
+        'Ran an OpenTelemetry POC across Axiom, Honeycomb, and Grafana Labs; instrumented 10+ services with multi-backend export for unified cloud and on-prem debugging',
+        'Built an AI agent using Prometheus MCP for live metrics, traces, and on-prem cluster querying — cut escalation resolution from 2h+ to under 30 minutes; 80%+ adoption',
       ],
     },
     {
@@ -409,7 +408,7 @@ cmd('about', () => {
   return `<div class="out-section">
 <div class="out-label">// about</div>
 <p class="out-p">Five years building distributed backend systems and the infrastructure that keeps them running: event pipelines, Kubernetes-native deployment tooling, observability setups, and reliability tooling. Go is my primary language, Python when it fits, Kubernetes in most of the places I've worked.</p>
-<p class="out-p">At RapidAI: automated Kubernetes deployments for hospital networks, distributed tracing across 12+ services (because guessing where things break gets old fast), and an AI reliability agent that cut incident resolution from 2+ hours to under 30 minutes. At Eka Care before that: built the backend for prescriptions and appointments, a notification platform handling 1M+ messages a day, and a webhook system serving 50+ clients.</p>
+<p class="out-p">At RapidAI: built Rapid SCU for DICOM platform load-testing, instrumented distributed tracing across 10+ services with OpenTelemetry (because guessing where requests fail gets old), and an AI agent that cut escalation resolution from 2h+ to under 30 minutes. At Eka Care before that: built the backend for prescriptions and appointments, a notification platform handling 1M+ messages a day, and a webhook system serving 50+ clients.</p>
 <p class="out-p">Outside work: backpacking, reading, badminton. Currently learning guitar and table tennis — simultaneously, which is ambitious.</p>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
@@ -616,7 +615,7 @@ cmd('neofetch', () => {
     `<div class="out-nf-name">${DATA.handle}@portfolio</div>`,
     `<div class="out-nf-sep">──────────────────────</div>`,
     `<div class="out-row"><span class="out-key">OS</span><span class="out-val">KaushalOS 2.6.1</span></div>`,
-    `<div class="out-row"><span class="out-key">Role</span><span class="out-val">Senior SWE · Distributed Systems &amp; Backend · RapidAI</span></div>`,
+    `<div class="out-row"><span class="out-key">Role</span><span class="out-val">SWE · Distributed Systems &amp; Backend · RapidAI</span></div>`,
     `<div class="out-row"><span class="out-key">Location</span><span class="out-val">${DATA.location}</span></div>`,
     `<div class="out-row"><span class="out-key">Runtime</span><span class="out-val">Go · Python</span></div>`,
     `<div class="out-row"><span class="out-key">Cloud</span><span class="out-val">AWS · GCP</span></div>`,
