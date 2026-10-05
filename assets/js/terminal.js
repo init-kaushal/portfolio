@@ -5,7 +5,7 @@
 const DATA = {
   name: 'Kaushal Sharma',
   handle: 'kaushal',
-  role: 'Senior Software Engineer · Distributed Systems & Backend',
+  role: 'Software Engineer · Distributed Systems & Backend',
   email: 'kaushalworkss@gmail.com',
   location: 'Bangalore, India',
   education: 'IIIT Jabalpur · B.Tech CSE · 2017–2021',
@@ -17,7 +17,7 @@ const DATA = {
   experience: [
     {
       company: 'RapidAI',
-      title: 'Senior Software Engineer, Platform',
+      title: 'Software Engineer, Platform',
       period: 'Oct 2025 – Present',
       bullets: [
         'Built the on-prem deployment system for hospital networks: automated Kubernetes cluster setup, configuration management, and continuous delivery using Helm and ArgoCD',
@@ -645,7 +645,7 @@ cmd('status', () => `<div class="out-section">
 <div class="out-status-line"><span class="status-dot">●</span> Available for interesting opportunities. Uninteresting ones too, depending on the problem.</div>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
-  <div class="out-row"><span class="out-key">currently</span><span class="out-val">@RapidAI — Senior Software Engineer · Distributed Systems &amp; Backend</span></div>
+  <div class="out-row"><span class="out-key">currently</span><span class="out-val">@RapidAI — Software Engineer · Distributed Systems &amp; Backend</span></div>
   <div class="out-row"><span class="out-key">open to</span><span class="out-val">Distributed systems · backend · platform · AI engineering</span></div>
 </div>
 </div>`);
