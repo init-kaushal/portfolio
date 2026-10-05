@@ -31,7 +31,7 @@ const DATA = {
       period: 'Feb 2023 – Sep 2025',
       bullets: [
         'Designed a high-throughput notification platform delivering 1M+ messages per day at 99.9% uptime',
-        'Built a secure webhook system for encrypted real-time delivery to 50+ clients at 100+ requests per second',
+        'Built a secure webhook system for encrypted real-time delivery to 100+ clients at 6K requests per minute',
         'Built backend services in Go for core prescription and appointment workflows',
         'Led and mentored 3 interns to build an internal analytics platform tracking customer usage across services and APIs',
       ],
@@ -408,7 +408,7 @@ cmd('about', () => {
   return `<div class="out-section">
 <div class="out-label">// about</div>
 <p class="out-p">Five years building distributed backend systems and the infrastructure that keeps them running: event pipelines, Kubernetes-native deployment tooling, observability setups, and reliability tooling. Go is my primary language, Python when it fits, Kubernetes in most of the places I've worked.</p>
-<p class="out-p">At RapidAI: built Rapid SCU for DICOM platform load-testing, instrumented distributed tracing across 10+ services with OpenTelemetry (because guessing where requests fail gets old), and an AI agent that cut escalation resolution from 2h+ to under 30 minutes. At Eka Care before that: built the backend for prescriptions and appointments, a notification platform handling 1M+ messages a day, and a webhook system serving 50+ clients.</p>
+<p class="out-p">At RapidAI: built Rapid SCU for DICOM platform load-testing, instrumented distributed tracing across 10+ services with OpenTelemetry (because guessing where requests fail gets old), and an AI agent that cut escalation resolution from 2h+ to under 30 minutes. At Eka Care before that: built the backend for prescriptions and appointments, a notification platform handling 1M+ messages a day, and a webhook system serving 100+ clients at 6K req/min.</p>
 <p class="out-p">Outside work: backpacking, reading, badminton. Currently learning guitar and table tennis — simultaneously, which is ambitious.</p>
 <div class="out-table">
   <div class="out-row"><span class="out-key">location</span><span class="out-val">${DATA.location}</span></div>
