@@ -20,9 +20,9 @@ const DATA = {
       title: 'Software Engineer, Platform',
       period: 'Oct 2025 – Present',
       bullets: [
-        'Built Rapid SCU — a Kubernetes-native DICOM load-testing service with multi-pod workload distribution and status aggregation APIs. Validates platform throughput at 2K–3K scans/day across S3, Box, and local storage',
+        'Built Rapid SCU, a Kubernetes-native DICOM load-testing service with multi-pod workload distribution and status aggregation APIs. Validates platform throughput at 2K–3K scans/day across S3, Box, and local storage',
         'Ran an OpenTelemetry POC across Axiom, Honeycomb, and Grafana Labs; instrumented 10+ services with multi-backend export for unified cloud and on-prem debugging',
-        'Built an AI agent using Prometheus MCP for live metrics, traces, and on-prem cluster querying — cut escalation resolution from 2h+ to under 30 minutes; 80%+ adoption',
+        'Built an AI agent using Prometheus MCP for live metrics, traces, and on-prem cluster querying. Cut escalation resolution from 2h+ to under 30 minutes; 80%+ adoption',
       ],
     },
     {
